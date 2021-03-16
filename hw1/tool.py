@@ -46,7 +46,7 @@ class Tool:
 
         return end_time_q.queue[-1]
     
-    def io(self , file_path='hw1/PFSP_benchmark_data_set/tai20_5_1.txt'):
+    def io(self , file_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
         df = pd.read_fwf(file_path,skiprows=[0],header=None)
         df = df.add_prefix('M')
         df = df.set_index('J' + df.index.astype(str))
