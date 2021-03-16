@@ -9,9 +9,9 @@ if __name__ == "__main__":
     while choice not in ['1', '2', '3']:
         choice = input('輸入錯誤，請輸入要用哪種演算法訓練：')
 
-    if choice == 1:
+    if choice == '1':
         pass
-    elif choice == 2:
+    elif choice == '2':
         pass
-    elif choice == 3:
+    elif choice == '3':
         pass 
