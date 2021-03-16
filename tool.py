@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import pandas as pd 
 import queue
 
 class Tool:
@@ -44,6 +45,14 @@ class Tool:
             time = end_time_q.queue[0]
 
         return end_time_q.queue[-1]
+    
+    def io(self , file_path='../tai20_5_1.txt'):
+        df = pd.read_fwf(file_path,skiprows=[0],header=None)
+        df = df.add_prefix('M')
+        df = df.set_index('J' + df.index.astype(str))
+        #print(df)
+        return df.values 
+
 
 
 
@@ -52,3 +61,4 @@ if __name__ == '__main__':  # For test Class
     array = [[5, 3, 4], [2, 5, 2], [1, 3,  2]]
     tool = Tool()
     print(tool.makespan(array, [1, 2, 0]))
+    print(tool.io())
