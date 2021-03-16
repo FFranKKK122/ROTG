@@ -15,6 +15,7 @@ if __name__ == "__main__":
     elif choice == '2':
         # SA = SA.SimulatedAnnealing()
         # SA.train()
+        pass
 
     elif choice == '3':
         pass 
