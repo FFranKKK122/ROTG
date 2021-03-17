@@ -1,5 +1,5 @@
 import tool
-# import simulatedAnnealing as SA
+import simulatedAnnealing as SA
 
 if __name__ == "__main__":
     print('1. iterative improvement')
@@ -13,9 +13,8 @@ if __name__ == "__main__":
     if choice == '1':
         pass
     elif choice == '2':
-        # SA = SA.SimulatedAnnealing()
-        # SA.train()
-        pass
+        SA = SA.SimulatedAnnealing()
+        SA.search()
 
     elif choice == '3':
         pass 
