@@ -5,7 +5,7 @@ import copy
 
 
 class SimulatedAnnealing:
-    def __init__(self, temperture, alpha, epoch_len, random_seed):
+    def __init__(self, temperture, alpha, epoch_len, random_seed, file='./PFSP_benchmark_data_set/tai20_5_1.txt'):
         self.temperture = temperture  # 初始溫度
         self.alpha = alpha  # temperture減少倍率
         self.count_time = 1  # 計算的數量
@@ -14,8 +14,7 @@ class SimulatedAnnealing:
 
         random.seed(random_seed)
         self.tool = tool.Tool()
-        self.span = self.tool.io(
-            './PFSP_benchmark_data_set/tai20_5_1.txt')  # 測資
+        self.span = self.tool.io(file)  # 測資
         self.job_len = 20
         self.min_jobs_seq = [int(e) for e in range(0, self.job_len)]  # job初始排序
         random.shuffle(self.min_jobs_seq)
@@ -35,9 +34,9 @@ class SimulatedAnnealing:
 
                 temp_jobs_seq = self.generateNewJobSeq(jobs_seq)
                 temp_makespan = self.tool.makespan(self.span, temp_jobs_seq)
-                
+
                 self.count_time += 1
-                print('已搜索', self.count_time, '次')
+                # print('已搜索', self.count_time, '次')
 
                 if temp_makespan < self.min_makespan:
                     self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
@@ -62,10 +61,6 @@ class SimulatedAnnealing:
         print(self.min_jobs_seq)
         print('最低makespan')
         print(self.min_makespan)
-
-        # 畫出此次search makespan的收斂圖
-        # self.tool.plot([int(e) for e in range(
-        #     len(self.makespan_array))], self.makespan_array)
 
     def generateNewJobSeq(self, jobs_seq):
         temp_jobs_seq = copy.deepcopy(jobs_seq)
