@@ -7,10 +7,12 @@ import multiprocessing as mp
 class IterativeImprovement:
 
     def __init__(self):
-        self.test_data_path = './PFSP_benchmark_data_set/tai100_5_1.txt'
+        self.test_data_path = './PFSP_benchmark_data_set/tai50_20_1.txt'
         self.tool = Tool()
+        self.max_span_time = 10000
         self.span = self.tool.io(self.test_data_path)  # 測資
         self.job_len = len(self.span[0])
+        self.eval_time = 20
 
     def generateNeighborList(self, jobs_seq):
         ret = []
@@ -29,13 +31,14 @@ class IterativeImprovement:
     def run(self, jobs_seq):
         min_span = self.tool.makespan(self.span, jobs_seq)  # 起始min值
         span_list = []
-
-        while (True):
+        count = 0
+        while (count < self.max_span_time):
 
             nb_list = self.generateNeighborList(jobs_seq)
 
             for i in range(len(nb_list)):
                 span = self.tool.makespan(self.span, nb_list[i])
+                count += 1
                 if (span < min_span):
                     min_span = span
                     jobs_seq = nb_list[i]
@@ -44,6 +47,9 @@ class IterativeImprovement:
                 return min_span
 
             span_list.append(min_span)
+
+        return min_span
+
 
 
     def average(self, lst):
@@ -55,7 +61,7 @@ class IterativeImprovement:
 
         random.seed(0)
         init_list = []
-        for cot in range(20):
+        for i in range(self.eval_time):
             jobs_seq = [int(e) for e in range(0, self.job_len)]
             random.shuffle(jobs_seq)
             init_list.append(jobs_seq)
