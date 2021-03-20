@@ -27,7 +27,7 @@ class SimulatedAnnealing:
         jobs_seq = copy.deepcopy(self.min_jobs_seq)
         makespan = self.min_makespan
         # search
-        while True:
+        while self.count_time < self.max_count_time:
             for l in range(self.epoch_len):
                 if self.count_time >= self.max_count_time:
                     break
@@ -45,15 +45,15 @@ class SimulatedAnnealing:
                 if temp_makespan < makespan:
                     jobs_seq = temp_jobs_seq
                     makespan = temp_makespan
-                    self.makespan_array.append(temp_makespan)
+                    # self.makespan_array.append(temp_makespan)
                 # 如果溫度計算出的機率足夠大的話，更新排序
                 elif math.exp((makespan - temp_makespan) / self.temperture) > random.random():
                     jobs_seq = temp_jobs_seq
                     makespan = temp_makespan
-                    self.makespan_array.append(temp_makespan)
+                self.makespan_array.append(makespan)
 
-            if self.count_time >= self.max_count_time:
-                break
+            # if self.count_time >= self.max_count_time:
+            #     break
             self.calculateEpoch()
             self.calculateTemperture()
 
@@ -73,9 +73,7 @@ class SimulatedAnnealing:
             second_elememt = random.randint(0, self.job_len-1)
 
         # 以兩者作為index的job_seq交換
-        temp = temp_jobs_seq[first_elememt]
-        temp_jobs_seq[first_elememt] = temp_jobs_seq[second_elememt]
-        temp_jobs_seq[second_elememt] = temp
+        temp_jobs_seq[first_elememt], temp_jobs_seq[second_elememt] = temp_jobs_seq[second_elememt], temp_jobs_seq[first_elememt]
 
         return temp_jobs_seq
 
