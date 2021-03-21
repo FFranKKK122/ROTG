@@ -8,7 +8,7 @@ class Tool:
 
     def plot(self, x_array, y_array):
         plt.plot(x_array, y_array)
-        plt.xlabel('updated_times')
+        plt.xlabel('FFE')
         plt.ylabel('makespan')
         plt.show()
     
