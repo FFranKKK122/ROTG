@@ -10,31 +10,36 @@ from itertools import combinations
 
 
 class TabuSearch:
-    def __init__(self):
+    def __init__(self, benchmark_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
         
         self.ffe_count = 0
         self.ffe_max   = 10000    #todo
         self.generation_count = 0
         self.generation_max   = 100
         
-        self.job_len = 20         #預設測資 tai20_5_1.txt
 
         self.neighbor_job_seqs = [] 
         self.neighbor_job_fitness = []
 
         self.length_of_tabu_list = 7 #magic number 
         self.tabu_list = collections.deque(maxlen = self.length_of_tabu_list)
-        self.tabu_work_times = 0        #有幾次因為某 job_seq 已在tabu list 中,不得選擇該 job_seq
+        self.tabu_work_times = 0        #幾次因為某 job_seq 已在tabu list 中,不得選擇該 job_seq
 
 
         self.tool = tool.Tool()        
-        self.span = self.tool.io(file_path='./hw1/PFSP_benchmark_data_set/tai20_5_1.txt')  # 測資
-        self.min_jobs_seq = [int(e) for e in range(0, self.job_len)]  # job初始排序
+        self.span = self.tool.io(file_path = benchmark_path)  # 測資
+        self.job_len = len(self.span[0])         #預設測資 tai20_5_1.txt
+        self.min_jobs_seq = [int(e) for e in range(0, self.job_len)] # job初始排序
         self.min_makespan = self.tool.makespan(self.span, self.min_jobs_seq)  # 計算初始makespan
-        self.experiment_result = [self.min_makespan]    #todo df 儲存所有makespan
+
+        self.experiment_result = []    #todo df 儲存所有makespan
+        self.single_benchmark_eval_time = 20            #todo
 
     def search(self):
-        #todo generation 代數 終止條件
+        self.ffe_count = 0
+        self.generation_count = 0
+        self.tabu_work_times = 0
+
         while (self.generation_count < self.generation_max):
             self.neighbor_job_seqs, self.neighbor_job_fitness = self.neighbor(self.min_jobs_seq)
 
@@ -57,6 +62,7 @@ class TabuSearch:
 
         print('最低 makespan 的 job_seq ', self.min_jobs_seq)
         print('最低 makespan ',self.min_makespan)
+        self.recordExperimentResult()
         print('tabu list 禁止的次數 ', self.tabu_work_times)
 
     def neighbor(self, job_seq):
@@ -96,12 +102,28 @@ class TabuSearch:
         
         return flag
 
-    def putInTabuList(self,jobs_seq):
+    def putInTabuList(self, jobs_seq):
         self.tabu_list.append(jobs_seq)
+    
+    def recordExperimentResult(self):
+        self.experiment_result.append(self.min_makespan)
+
+    def experiment(self):
+        random.seed(0)
+        for i in range( self.single_benchmark_eval_time):
+            random_init_job_seq = [int(e) for e in range(0, self.job_len)]
+            random.shuffle(random_init_job_seq)
+            self.min_jobs_seq = random_init_job_seq
+            self.search()
+            
+    
+
+
 
 
 
 if __name__ == '__main__':
     tabu = TabuSearch()
-    tabu.search()
+    tabu.experiment()
+    print('實驗結果 ', tabu.experiment_result)
 
