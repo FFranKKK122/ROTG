@@ -10,7 +10,7 @@ from itertools import combinations
 
 
 class TabuSearch:
-    def __init__(self, benchmark_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
+    def __init__(self, benchmark_path='./PFSP_benchmark_data_set/tai50_20_1.txt'):
         
         self.ffe_count = 0
         self.ffe_max   = 10000    #todo
@@ -52,9 +52,9 @@ class TabuSearch:
             for seq in sorted_neighbor_job_seqs:
                 index = sorted_neighbor_job_seqs.index(seq)
                 if(not self.isInTabuList(seq)):
+                    self.putInTabuList(self.min_jobs_seq)  #把自己放入 tabu list 
                     self.min_jobs_seq = sorted_neighbor_job_seqs[index]
                     self.min_makespan = sorted_neighbor_job_fitness[index]
-                    self.putInTabuList(seq)
                     break
             
             print('第 ', self.generation_count, ' 代')
