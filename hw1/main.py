@@ -39,6 +39,8 @@ if __name__ == "__main__":
             benchmark = benchmark.replace('.txt', '')
             df_experiment_result[benchmark] = Tabu_search.experiment_result
 
+        print('實驗結果' , df_experiment_result)
+        df_experiment_result.to_csv('Tabu_experiment_result2.csv', header=True, index=False)
         df_experiment_result.to_csv('Tabu_experiment_result.csv', header=True, index=False)
 
 

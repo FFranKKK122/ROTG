@@ -32,7 +32,7 @@ class TabuSearch:
         self.min_jobs_seq = [int(e) for e in range(0, self.job_len)] # job初始排序
         self.min_makespan = self.tool.makespan(self.span, self.min_jobs_seq)  # 計算初始makespan
 
-        self.experiment_result = []    #todo df 儲存所有makespan
+        self.experiment_result = []   
         self.single_benchmark_eval_time = 20            #todo
 
     def search(self):
@@ -122,8 +122,8 @@ class TabuSearch:
 
 
 
-if __name__ == '__main__':
-    tabu = TabuSearch()
-    tabu.experiment()
-    print('實驗結果 ', tabu.experiment_result)
+# if __name__ == '__main__':
+#     tabu = TabuSearch()
+#     tabu.experiment()
+#     print('實驗結果 ', tabu.experiment_result)
 
