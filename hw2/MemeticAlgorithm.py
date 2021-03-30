@@ -31,7 +31,24 @@ class MemeticAlgorithm:
         
 
     def search(self):
-        pass
+
+        for i in range(2):
+            self.population = self.evaluation(self.population)
+            df = self.mating_selection(self.population)
+            parent, offspring = self.reproduction(df)
+            parent = self.evaluation(parent)
+            offspring = self.evaluation(offspring)
+
+            self.environmental_selection(parent, offspring)
+
+            for i in range(len(df.index)):
+                SA_search = SA.SimulatedAnnealing(
+                    100, 0.95, 40, self.population['jobs'], self.test_data_path)
+                SA_search.search()
+                self.population['makespans'][i] = SA_search.min_makespan
+
+        return self.population
+
 
     def evaluation(self, df):
         size = len(df.index)
