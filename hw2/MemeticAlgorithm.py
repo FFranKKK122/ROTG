@@ -35,15 +35,22 @@ class MemeticAlgorithm:
         for i in range(2):
             self.population = self.evaluation(self.population)
             df = self.mating_selection(self.population)
-            parent, offspring = self.reproduction(df)
-            parent = self.evaluation(parent)
-            offspring = self.evaluation(offspring)
+            df2 = self.mating_selection(self.population)
 
-            self.environmental_selection(parent, offspring)
+            offspring, span = self.reproduction(df)
+            offspring1, span1 = self.reproduction(df2)
+            offspring += offspring1
+            span += span1
+
+            population = pd.DataFrame()
+            population['jobs'] = offspring
+            population['makespans'] = span
+
+            self.environmental_selection(self.population, population)
 
             for i in range(len(df.index)):
                 SA_search = SA.SimulatedAnnealing(
-                    100, 0.95, 40, self.population['jobs'], self.test_data_path)
+                    100, 0.95, 40, self.population['jobs'][i], self.test_data_path)
                 SA_search.search()
                 self.population['makespans'][i] = SA_search.min_makespan
 
@@ -57,15 +64,15 @@ class MemeticAlgorithm:
 
         return df
 
-    def reproduction(Parents):
+    def reproduction(self, Parents):
         # use 'linear order crossover'
         max_gene_fixed_len =  self.job_len - 2
 
-        gene_fixed_len = random.randint(1,gene_fixed_len)
+        gene_fixed_len = random.randint(1,max_gene_fixed_len)
         gene_split_position = random.randint(0,self.job_len - gene_fixed_len)
 
         ParentA = Parents.iloc[0,0]
-        ParentB = Parents.iloc[1,1]
+        ParentB = Parents.iloc[1,0]
 
         ParentA_fixed_gene = ParentA[ gene_split_position:gene_fixed_len ]
         ParentB_fixed_gene = ParentB[ gene_split_position:gene_fixed_len ]
@@ -96,13 +103,11 @@ class MemeticAlgorithm:
         childA =  ParentA_front + ParentA_fixed_gene + ParentA_back
         childB =  ParentB_front + ParentB_fixed_gene + ParentB_back
 
-        child = pd.DataFrame()
-        child['job'] = [childA,childB]
-        child['makespans'] = [0,0]
+        #child = pd.DataFrame()
+        #child['jobs'] = [childA,childB]
+        #child['makespans'] = [0,0]
 
-        return child
-        
-    def environmental_selection():
+        return [childA, childB], [0, 0]
 
     def mating_selection(self, df):
         random.seed(0)
@@ -130,8 +135,7 @@ class MemeticAlgorithm:
 
         return ret
 
-    def reproduction(self):
-        pass
+
 
     def environmental_selection(self, parent, offspring):
         parent_min = self.find_min_from_df(parent)
