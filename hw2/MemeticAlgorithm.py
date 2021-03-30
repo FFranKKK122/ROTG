@@ -1,7 +1,4 @@
-import tool
-import math
 import random
-import copy
 import tool
 import simulatedAnnealing as SA
 import pandas as pd
@@ -31,6 +28,7 @@ class MemeticAlgorithm:
         self.population = pd.DataFrame()
         self.population['jobs'] = init_jobs
         self.population['makespans'] = init_makespans
+        
 
     def search(self):
         pass
@@ -38,8 +36,31 @@ class MemeticAlgorithm:
     def evaluation(self):
         pass
 
-    def mating_selection(self):
-        pass
+    def mating_selection(self, df):
+        random.seed(0)
+        span_list = []
+        jobs_list = []
+
+        for i in range(2):
+            a = random.randint(0, 3)
+            b = random.randint(0, 3)
+
+            while (a == b):
+                b = random.randint(0, 3)
+            print(a, b)
+
+            if (df['makespans'][a] <= df['makespans'][b]):
+                jobs_list.append(df['jobs'][a])
+                span_list.append(df['makespans'][a])
+            else:
+                jobs_list.append(df['jobs'][b])
+                span_list.append(df['makespans'][b])
+        ret = pd.DataFrame()
+
+        ret['jobs'] = jobs_list
+        ret['makespans'] = span_list
+
+        return ret
 
     def reproduction(self):
         pass
