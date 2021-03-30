@@ -1,5 +1,6 @@
 import tool
 import simulatedAnnealing as SA
+import tabuSearch as Tabu
 import pandas as pd
 from os import listdir
 from os.path import isfile, join
@@ -29,7 +30,21 @@ if __name__ == "__main__":
 
 
     elif choice == '3':
-        pass
+        mypath = './PFSP_benchmark_data_set/'
+        benchmarks = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+        df_experiment_result = pd.DataFrame()
+        for benchmark in benchmarks:
+            Tabu_search = Tabu.TabuSearch(benchmark_path = mypath + benchmark)
+            Tabu_search.experiment()
+            benchmark = benchmark.replace('.txt', '')
+            df_experiment_result[benchmark] = Tabu_search.experiment_result
+
+        print('實驗結果' , df_experiment_result)
+        df_experiment_result.to_csv('Tabu_experiment_result2.csv', header=True, index=False)
+        df_experiment_result.to_csv('Tabu_experiment_result.csv', header=True, index=False)
+
+
+        
 
     elif choice == '4':
         mypath = './PFSP_benchmark_data_set'
