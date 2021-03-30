@@ -9,7 +9,7 @@ import pandas as pd
 
 class MemeticAlgorithm:
 
-    def __init__(self, file_path = './PFSP_benchmark_data_set/tai20_5_1.txt'):
+    def __init__(self, file_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
         self.test_data_path = file_path
         self.tool = tool.Tool()
         self.max_span_time = 10000
@@ -44,5 +44,26 @@ class MemeticAlgorithm:
     def reproduction(self):
         pass
 
-    def environmental_selection(self):
-        pass
+    def environmental_selection(self, parent, offspring):
+        parent_min = self.find_min_from_df(parent)
+        offspring_min = self.find_min_from_df(offspring)
+        self.population['jobs'] = parent_min[0] + offspring_min[0]
+        self.population['makespans'] = parent_min[1] + offspring_min[1]
+
+    def find_min_from_df(self, df):
+        min_makespan1 = df['makespans'][0]
+        min_jobs1 = df['jobs'][0]
+        for i in range(len(df.index)):
+            if df['makespans'][i] < min_makespan1:
+                min_makespan1 = df['makespans'][i]
+                min_jobs1 = df['jobs'][i]
+
+        min_makespan2 = 99999
+        min_jobs2 = []
+        for i in range(len(df.index)):
+            if df['makespans'][i] < min_makespan2:
+                if df['makespans'][i] <= min_makespan1 and df['jobs'][i] != min_jobs1:
+                    min_makespan2 = df['makespans'][i]
+                    min_jobs2 = df['jobs'][i]
+
+        return [[min_jobs1, min_jobs2], [min_makespan1, min_makespan2]]
