@@ -40,6 +40,52 @@ class MemeticAlgorithm:
 
         return df
 
+    def reproduction(Parents):
+        # use 'linear order crossover'
+        max_gene_fixed_len =  self.job_len - 2
+
+        gene_fixed_len = random.randint(1,gene_fixed_len)
+        gene_split_position = random.randint(0,self.job_len - gene_fixed_len)
+
+        ParentA = Parents.iloc[0,0]
+        ParentB = Parents.iloc[1,1]
+
+        ParentA_fixed_gene = ParentA[ gene_split_position:gene_fixed_len ]
+        ParentB_fixed_gene = ParentB[ gene_split_position:gene_fixed_len ]
+
+        front_len = len(ParentA[ 0:gene_split_position ])
+        back_len  = self.job_len - front_len - len(ParentA_fixed_gene)
+
+        ParentA_front = []
+        ParentB_front = []
+
+        ParentA_back = []
+        ParentB_back = [] 
+
+        for i in ParentA:
+            if i not in ParentB_fixed_gene:
+                if len(ParentB_front) < front_len:
+                    ParentB_front.append(i)
+                else:
+                    ParentB_back.append(i)
+
+        for i in ParentB:
+            if i not in ParentA_fixed_gene:
+                if len(ParentA_front) < front_len:
+                    ParentA_front.append(i)
+                else:
+                    ParentA_back.append(i)
+
+        childA =  ParentA_front + ParentA_fixed_gene + ParentA_back
+        childB =  ParentB_front + ParentB_fixed_gene + ParentB_back
+
+        child = pd.DataFrame()
+        child['job'] = [childA,childB]
+        child['makespans'] = [0,0]
+
+        return child
+        
+    def environmental_selection():
 
     def mating_selection(self, df):
         random.seed(0)
