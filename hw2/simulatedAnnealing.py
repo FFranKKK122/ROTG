@@ -21,7 +21,7 @@ class SimulatedAnnealing:
         self.makespan_array = [self.min_makespan]  # 儲存所有makespan
 
     def search(self):
-        print(self.min_jobs_seq)
+        # print(self.min_jobs_seq)
         jobs_seq = copy.deepcopy(self.min_jobs_seq)
         makespan = self.min_makespan
         # search

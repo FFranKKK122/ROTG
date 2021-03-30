@@ -13,5 +13,5 @@ if __name__ == "__main__":
 
     if choice == '1':
         ma = MA.MemeticAlgorithm()
-        print(ma.population)
+        ma.search()
         
