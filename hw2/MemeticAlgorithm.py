@@ -12,7 +12,7 @@ class MemeticAlgorithm:
         self.max_span_time = 10000
         self.span = self.tool.io(self.test_data_path)  # 測資
         self.job_len = len(self.span[0])
-
+        '''
         random.seed(0)
         init_jobs = []
         init_makespans = []
@@ -29,12 +29,17 @@ class MemeticAlgorithm:
         self.population['jobs'] = init_jobs
         self.population['makespans'] = init_makespans
         
-
+'''
     def search(self):
         pass
 
-    def evaluation(self):
-        pass
+    def evaluation(self, df):
+        size = len(df.index)
+        for i in range(size):
+            df['makespans'][i] = self.tool.makespan(self.span, df['jobs'][i])
+
+        return df
+
 
     def mating_selection(self, df):
         random.seed(0)
