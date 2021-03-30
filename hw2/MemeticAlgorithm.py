@@ -34,7 +34,7 @@ class MemeticAlgorithm:
         pass
 
     def reproduction():
-        pass
+        
 
     def environmental_selection():
         pass
