@@ -6,7 +6,7 @@ import pandas as pd
 
 class MemeticAlgorithm:
 
-    def __init__(self, file_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
+    def __init__(self, file_path='./PFSP_benchmark_data_set/tai20_10_1.txt'):
         self.test_data_path = file_path
         self.tool = tool.Tool()
         self.max_span_time = 10000
@@ -48,7 +48,7 @@ class MemeticAlgorithm:
 
             self.environmental_selection(self.population, population)
 
-            for i in range(len(df.index)):
+            for i in range(len(self.population.index)):
                 SA_search = SA.SimulatedAnnealing(
                     100, 0.95, 40, self.population['jobs'][i], self.test_data_path)
                 SA_search.search()
@@ -69,7 +69,7 @@ class MemeticAlgorithm:
         max_gene_fixed_len =  self.job_len - 2
 
         gene_fixed_len = random.randint(1,max_gene_fixed_len)
-        gene_split_position = random.randint(0,self.job_len - gene_fixed_len)
+        gene_split_position = random.randint(0, self.job_len - gene_fixed_len)
 
         ParentA = Parents.iloc[0,0]
         ParentB = Parents.iloc[1,0]

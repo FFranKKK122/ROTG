@@ -14,7 +14,7 @@ class SimulatedAnnealing:
 
         self.tool = tool.Tool()
         self.span = self.tool.io(file)  # 測資
-        self.job_len = 20
+        self.job_len = len(initial_jobs)
         self.min_jobs_seq = initial_jobs  # job初始排序
         self.min_makespan = self.tool.makespan(
             self.span, self.min_jobs_seq)  # 計算初始makespan
