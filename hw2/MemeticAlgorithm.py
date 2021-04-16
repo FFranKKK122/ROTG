@@ -36,7 +36,8 @@ class MemeticAlgorithm:
 
     def search(self):
         print('start search')
-        for i in range(2):
+        for i in range(10):
+            print('epoch',i)
             self.population = self.evaluation(self.population)
             df = self.mating_selection(self.population)
             df2 = self.mating_selection(self.population)
@@ -146,7 +147,7 @@ class MemeticAlgorithm:
         self.population['makespans'] = parent_min[1] + offspring_min[1]
 
     def find_min_from_df(self, df):
-        df = df.sort_values('makespans',ascending=False)
+        df = df.sort_values('makespans',ascending=True)
         return [[df['jobs'][0], df['jobs'][1]], [df['makespans'][0], df['makespans'][1]]]
         
     def find_min_makespan(self):
