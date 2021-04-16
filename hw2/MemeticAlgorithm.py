@@ -36,8 +36,8 @@ class MemeticAlgorithm:
 
     def search(self):
         print('start search')
-        for i in range(10):
-            print('epoch',i)
+        for i in range(2):
+            print('epoch', i)
             self.population = self.evaluation(self.population)
             df = self.mating_selection(self.population)
             df2 = self.mating_selection(self.population)
@@ -57,14 +57,14 @@ class MemeticAlgorithm:
                 SA_search = SA.SimulatedAnnealing(
                     100, 0.95, 40, self.population['jobs'][i], self.test_data_path)
                 SA_search.search()
-                self.population['makespans'][i] = SA_search.min_makespan
+                self.population.loc[i, 'makespans'] = SA_search.min_makespan
             self.find_min_makespan()
         print('end search')
 
     def evaluation(self, df):
         size = len(df.index)
         for i in range(size):
-            df['makespans'][i] = self.tool.makespan(self.span, df['jobs'][i])
+            df.loc[i, 'makespans'] = self.tool.makespan(self.span, df['jobs'][i])
 
         return df
 
