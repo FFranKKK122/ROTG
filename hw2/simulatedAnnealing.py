@@ -9,12 +9,12 @@ class SimulatedAnnealing:
         self.temperture = temperture  # 初始溫度
         self.alpha = alpha  # temperture減少倍率
         self.count_time = 1  # 計算的數量
-        self.max_count_time = 5000  # 總計算數
+        self.max_count_time = 10000  # 總計算數
         self.epoch_len = epoch_len
 
         self.tool = tool.Tool()
         self.span = self.tool.io(file)  # 測資
-        self.job_len = 20
+        self.job_len = len(initial_jobs)
         self.min_jobs_seq = initial_jobs  # job初始排序
         self.min_makespan = self.tool.makespan(
             self.span, self.min_jobs_seq)  # 計算初始makespan
