@@ -6,7 +6,8 @@ import pandas as pd
 
 class MemeticAlgorithm:
 
-    def __init__(self, file_path='./PFSP_benchmark_data_set/tai20_10_1.txt'):
+    def __init__(self, file_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
+        print('init')
         self.test_data_path = file_path
         self.tool = tool.Tool()
         self.max_span_time = 10000
@@ -28,10 +29,13 @@ class MemeticAlgorithm:
         self.population = pd.DataFrame()
         self.population['jobs'] = init_jobs
         self.population['makespans'] = init_makespans
+        self.min_makespan = 999999999
+        self.min_jobs = []
+        self.find_min_makespan()
         
 
     def search(self):
-
+        print('start search')
         for i in range(2):
             self.population = self.evaluation(self.population)
             df = self.mating_selection(self.population)
@@ -45,7 +49,7 @@ class MemeticAlgorithm:
             population = pd.DataFrame()
             population['jobs'] = offspring
             population['makespans'] = span
-
+            population = self.evaluation(population)
             self.environmental_selection(self.population, population)
 
             for i in range(len(self.population.index)):
@@ -53,9 +57,8 @@ class MemeticAlgorithm:
                     100, 0.95, 40, self.population['jobs'][i], self.test_data_path)
                 SA_search.search()
                 self.population['makespans'][i] = SA_search.min_makespan
-
-        return self.population
-
+            self.find_min_makespan()
+        print('end search')
 
     def evaluation(self, df):
         size = len(df.index)
@@ -120,7 +123,6 @@ class MemeticAlgorithm:
 
             while (a == b):
                 b = random.randint(0, 3)
-            print(a, b)
 
             if (df['makespans'][a] <= df['makespans'][b]):
                 jobs_list.append(df['jobs'][a])
@@ -144,19 +146,11 @@ class MemeticAlgorithm:
         self.population['makespans'] = parent_min[1] + offspring_min[1]
 
     def find_min_from_df(self, df):
-        min_makespan1 = df['makespans'][0]
-        min_jobs1 = df['jobs'][0]
-        for i in range(len(df.index)):
-            if df['makespans'][i] < min_makespan1:
-                min_makespan1 = df['makespans'][i]
-                min_jobs1 = df['jobs'][i]
-
-        min_makespan2 = 99999
-        min_jobs2 = []
-        for i in range(len(df.index)):
-            if df['makespans'][i] < min_makespan2:
-                if df['makespans'][i] <= min_makespan1 and df['jobs'][i] != min_jobs1:
-                    min_makespan2 = df['makespans'][i]
-                    min_jobs2 = df['jobs'][i]
-
-        return [[min_jobs1, min_jobs2], [min_makespan1, min_makespan2]]
+        df = df.sort_values('makespans',ascending=False)
+        return [[df['jobs'][0], df['jobs'][1]], [df['makespans'][0], df['makespans'][1]]]
+        
+    def find_min_makespan(self):
+        df = self.population.sort_values('makespans', ascending=False)
+        if df['makespans'][0] < self.min_makespan:
+            self.min_makespan = df['makespans'][0]
+            self.min_jobs = df['jobs'][0]

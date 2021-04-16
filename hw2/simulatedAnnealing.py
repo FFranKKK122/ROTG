@@ -9,7 +9,7 @@ class SimulatedAnnealing:
         self.temperture = temperture  # 初始溫度
         self.alpha = alpha  # temperture減少倍率
         self.count_time = 1  # 計算的數量
-        self.max_count_time = 5000  # 總計算數
+        self.max_count_time = 10000  # 總計算數
         self.epoch_len = epoch_len
 
         self.tool = tool.Tool()
