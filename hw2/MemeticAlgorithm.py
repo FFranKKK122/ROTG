@@ -150,7 +150,7 @@ class MemeticAlgorithm:
         return [[df['jobs'][0], df['jobs'][1]], [df['makespans'][0], df['makespans'][1]]]
         
     def find_min_makespan(self):
-        df = self.population.sort_values('makespans', ascending=False)
+        df = self.population.sort_values('makespans', ascending=True)
         if df['makespans'][0] < self.min_makespan:
             self.min_makespan = df['makespans'][0]
             self.min_jobs = df['jobs'][0]
