@@ -7,7 +7,7 @@ import logging
 
 class MemeticAlgorithm:
 
-    def __init__(self, file_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
+    def __init__(self, file_path, csv_pd):
         print('init')
         self.test_data_path = file_path
         self.tool = tool.Tool()
@@ -17,6 +17,7 @@ class MemeticAlgorithm:
         self.population_len = 4
         self.search_alter = False #True 代表local search會把排列也更新， False則不會，只更新makespans
         self.need_search_num = 4
+        self.min_makespan_each_gen_list = []
 
         #random.seed(0)
         init_jobs = []
@@ -38,14 +39,14 @@ class MemeticAlgorithm:
         self.SA_init_epoch_len = 40
         #initial先local search
         for i in range(self.need_search_num):
-            print(self.population['jobs'][i], self.population['makespans'][i])
+            #print(self.population['jobs'][i], self.population['makespans'][i])
             SA_search = SA.SimulatedAnnealing(
                 self.SA_init_temp, self.SA_init_alpha, self.SA_init_epoch_len, self.population['jobs'][i], self.test_data_path)
             SA_search.search()
             if self.search_alter:
                 self.population['jobs'][i] = SA_search.min_jobs_seq
             self.population.loc[i, 'makespans'] = SA_search.min_makespan
-            print(self.population['jobs'][i], self.population['makespans'][i])
+            #print(self.population['jobs'][i], self.population['makespans'][i])
 
         self.min_makespan = 999999999
         self.min_jobs = []
@@ -54,7 +55,7 @@ class MemeticAlgorithm:
 
     def search(self):
         print('start search')
-        epoch_len = 10
+        epoch_len = 20
 
         for i in range(epoch_len):
             print('epoch', i)
@@ -86,9 +87,13 @@ class MemeticAlgorithm:
                 self.population.loc[i, 'makespans'] = SA_search.min_makespan
             self.find_min_makespan()
             print('min_makespan:', self.min_makespan)
-            logging.info('min_makespan: %d' % self.min_makespan)
+            #logging.info('min_makespan: %d' % self.min_makespan)
+
+            self.min_makespan_each_gen_list.append(self.min_makespan)
 
         print('end search')
+        return self.min_makespan_each_gen_list
+
 
     def evaluation(self, df):
         size = len(df.index)
