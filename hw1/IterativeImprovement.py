@@ -1,7 +1,6 @@
 from tool import Tool
 import copy
 import random
-import threading
 import multiprocessing as mp
 
 class IterativeImprovement:

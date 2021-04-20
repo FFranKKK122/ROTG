@@ -13,7 +13,7 @@ class TabuSearch:
     def __init__(self, benchmark_path='./PFSP_benchmark_data_set/tai50_20_1.txt'):
         
         self.ffe_count = 0
-        self.ffe_max   = 10000    #todo
+        self.ffe_max = 10000    #todo
         self.generation_count = 0
         self.generation_max   = 100
         
