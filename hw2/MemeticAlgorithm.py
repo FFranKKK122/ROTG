@@ -2,6 +2,7 @@ import random
 import tool
 import simulatedAnnealing as SA
 import pandas as pd
+import logging
 
 
 class MemeticAlgorithm:
@@ -14,7 +15,7 @@ class MemeticAlgorithm:
         self.span = self.tool.io(self.test_data_path)  # 測資
         self.job_len = len(self.span[0])
 
-        random.seed(0)
+        #random.seed(0)
         init_jobs = []
         init_makespans = []
         for i in range(4):
@@ -36,8 +37,10 @@ class MemeticAlgorithm:
 
     def search(self):
         print('start search')
-        for i in range(10):
-            print('epoch',i)
+        epoch_len = 10
+
+        for i in range(epoch_len):
+            print('epoch', i)
             self.population = self.evaluation(self.population)
             df = self.mating_selection(self.population)
             df2 = self.mating_selection(self.population)
@@ -57,14 +60,16 @@ class MemeticAlgorithm:
                 SA_search = SA.SimulatedAnnealing(
                     100, 0.95, 40, self.population['jobs'][i], self.test_data_path)
                 SA_search.search()
-                self.population['makespans'][i] = SA_search.min_makespan
+                self.population.loc[i, 'makespans'] = SA_search.min_makespan
             self.find_min_makespan()
+            logging.info('min_makespan: %d' % self.min_makespan)
+
         print('end search')
 
     def evaluation(self, df):
         size = len(df.index)
         for i in range(size):
-            df['makespans'][i] = self.tool.makespan(self.span, df['jobs'][i])
+            df.loc[i, 'makespans'] = self.tool.makespan(self.span, df['jobs'][i])
 
         return df
 
