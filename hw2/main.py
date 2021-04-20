@@ -103,7 +103,7 @@ if __name__ == "__main__":
             pool = mp.Pool(mp.cpu_count())
             csv_pd = pd.DataFrame()
 
-            seed_range = 10
+            seed_range = 20
             input_list = [(seed, str(mypath + benchmark)) for seed in range(seed_range)]
 
             results = pool.starmap_async(task, input_list)
