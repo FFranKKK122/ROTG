@@ -1,29 +1,23 @@
 import matplotlib.pyplot as plt
 import pandas as pd 
 import queue
+import numpy
+cimport numpy
 
-class Tool:
-    def __init__(self):
-        pass
-
-    def plot(self, x_array, y_array):
-        plt.plot(x_array, y_array)
-        plt.xlabel('FFE')
-        plt.ylabel('makespan')
-        plt.show()
-    
-    def makespan(self, array, order = [0, 1, 2] ):
+cpdef int makespan(numpy.ndarray array, list order = [0, 1, 2] ):
         # job 數量
-        machine_count = len(array)
+        cdef int machine_count = len(array)
         # 機器數量
-        jobs = len(array[0])
+        cdef int jobs = len(array[0])
         #print(jobs, machine_count)
 
         #起始時間
-        time = 0
+        cdef int time = 0
         #完成時間Queue
         end_time_q = queue.Queue()
-
+        
+        cdef int i  
+        cdef int j
         #起始上一階段完成時間皆為0
         for i in range(jobs):
             end_time_q.put(0)
@@ -45,18 +39,29 @@ class Tool:
             time = end_time_q.queue[0]
 
         return end_time_q.queue[-1]
+
+class Tool:
+    def __init__(self):
+        pass
+
+    def plot(self, x_array, y_array):
+        plt.plot(x_array, y_array)
+        plt.xlabel('FFE')
+        plt.ylabel('makespan')
+        plt.show()
+    
+    
     
     def io(self , file_path='./PFSP_benchmark_data_set/tai20_5_1.txt'):
         df = pd.read_fwf(file_path,skiprows=[0],header=None)
         df = df.add_prefix('M')
         df = df.set_index('J' + df.index.astype(str))
         #print(df)
-        return df.values 
+        return df.to_numpy()
 
 
 
 if __name__ == '__main__':  # For test Class
     array = [[5, 2, 1], [3, 5, 3], [4, 2,  2]]
     tool = Tool()
-    print(tool.makespan(array, [1, 2, 0]))
     print(tool.io())

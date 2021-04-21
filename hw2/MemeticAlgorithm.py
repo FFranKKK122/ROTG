@@ -2,6 +2,7 @@ import random
 import tool
 import CsimulatedAnnealing as SA
 import pandas as pd
+import numpy as np
 import logging
 
 
@@ -98,7 +99,7 @@ class MemeticAlgorithm:
     def evaluation(self, df):
         size = len(df.index)
         for i in range(size):
-            df.loc[i, 'makespans'] = self.tool.makespan(self.span, df['jobs'][i])
+            df.loc[i, 'makespans'] = tool.makespan(np.array(self.span), df['jobs'][i])
 
         return df
 

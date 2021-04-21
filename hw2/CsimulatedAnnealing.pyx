@@ -1,15 +1,16 @@
 from tool import Tool
+import tool
 import math
 import random
 import copy
-cimport numpy
+cimport numpy as np
 
 
 cdef class SimulatedAnnealing:
     cdef public int epoch_len, count_time, max_count_time, job_len, min_makespan
     cdef public double alpha, temperture
     cdef public list min_jobs_seq, makespan_array
-    cdef public numpy.ndarray span
+    cdef public np.ndarray span
 
     def __init__(self, double temperture, double alpha, int epoch_len, list initial_jobs, file="./PFSP_benchmark_data_set/tai20_5_1.txt"):
         self.temperture = temperture  # 初始溫度
@@ -21,8 +22,7 @@ cdef class SimulatedAnnealing:
         self.span = Tool().io(file)  # 測資
         self.job_len = len(initial_jobs)
         self.min_jobs_seq = initial_jobs  # job初始排序
-        self.min_makespan = Tool().makespan(
-            self.span, self.min_jobs_seq)  # 計算初始makespan
+        self.min_makespan = tool.makespan(self.span, self.min_jobs_seq)  # 計算初始makespan
         self.makespan_array = [self.min_makespan]  # 儲存所有makespan
 
     def search(self):
