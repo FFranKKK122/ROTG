@@ -13,8 +13,11 @@ def task(seed, fpath):
 
     random.seed(seed)
     logging.info('seed: %d' % seed)
-
+    start = time.time()
     ma = MA.MemeticAlgorithm(file_path=fpath, csv_pd=csv_pd)
+    end = time.time()
+    # 輸出結果
+    print("執行時間：%f 秒" % (end - start))
 
     print('min_jobs:', ma.min_jobs)
     print('min_makespan:', ma.min_makespan)
@@ -104,7 +107,6 @@ if __name__ == "__main__":
         mypath = './PFSP_benchmark_data_set/'
         benchmarks = [f for f in listdir(mypath) if isfile(join(mypath, f))]
         print(benchmarks)
-        benchmarks.reverse()
 
         for benchmark in benchmarks:
 
