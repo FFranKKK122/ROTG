@@ -1118,7 +1118,7 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
-/* "CsimulatedAnnealing.pyx":9
+/* "CsimulatedAnnealing.pyx":8
  * 
  * 
  * cdef class SimulatedAnnealing:             # <<<<<<<<<<<<<<
@@ -1144,6 +1144,8 @@ struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing {
 
 struct __pyx_vtabstruct_19CsimulatedAnnealing_SimulatedAnnealing {
   PyObject *(*generateNewJobSeq)(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *, PyObject *);
+  PyObject *(*calculateEpoch)(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *);
+  PyObject *(*calculateTemperture)(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *);
 };
 static struct __pyx_vtabstruct_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_vtabptr_19CsimulatedAnnealing_SimulatedAnnealing;
 
@@ -1674,6 +1676,8 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJobSeq(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, PyObject *__pyx_v_jobs_seq); /* proto*/
+static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_calculateEpoch(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto*/
+static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_calculateTemperture(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto*/
 
 /* Module declarations from 'cpython.buffer' */
 
@@ -1765,7 +1769,6 @@ static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_SimulatedAnnealing[] = "SimulatedAnnealing";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_CsimulatedAnnealing[] = "CsimulatedAnnealing";
-static const char __pyx_k_calculateTemperture[] = "calculateTemperture";
 static const char __pyx_k_pyx_unpickle_SimulatedAnnealin[] = "__pyx_unpickle_SimulatedAnnealing";
 static const char __pyx_k_PFSP_benchmark_data_set_tai20_5[] = "./PFSP_benchmark_data_set/tai20_5_1.txt";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
@@ -1779,7 +1782,6 @@ static PyObject *__pyx_n_s_PickleError;
 static PyObject *__pyx_n_s_SimulatedAnnealing;
 static PyObject *__pyx_n_s_Tool;
 static PyObject *__pyx_n_s_alpha;
-static PyObject *__pyx_n_s_calculateTemperture;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_deepcopy;
@@ -1821,8 +1823,6 @@ static PyObject *__pyx_n_s_tool;
 static PyObject *__pyx_n_s_update;
 static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, double __pyx_v_temperture, double __pyx_v_alpha, int __pyx_v_epoch_len, PyObject *__pyx_v_initial_jobs, PyObject *__pyx_v_file); /* proto */
 static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4calculateEpoch(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_6calculateTemperture(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_9epoch_len___get__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
 static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_9epoch_len_2__set__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10count_time___get__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
@@ -1846,8 +1846,8 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_14makespan_array_
 static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4span___get__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
 static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4span_2__set__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4span_4__del__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_8__reduce_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10__setstate_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4__reduce_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_6__setstate_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_19CsimulatedAnnealing___pyx_unpickle_SimulatedAnnealing(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_19CsimulatedAnnealing_SimulatedAnnealing(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
@@ -1858,7 +1858,7 @@ static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_codeobj__4;
 /* Late includes */
 
-/* "CsimulatedAnnealing.pyx":15
+/* "CsimulatedAnnealing.pyx":14
  *     cdef public np.ndarray span
  * 
  *     def __init__(self, double temperture, double alpha, int epoch_len, list initial_jobs, file="./PFSP_benchmark_data_set/tai20_5_1.txt"):             # <<<<<<<<<<<<<<
@@ -1910,19 +1910,19 @@ static int __pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_1__init__(PyObjec
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, 1); __PYX_ERR(0, 15, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, 1); __PYX_ERR(0, 14, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_epoch_len)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, 2); __PYX_ERR(0, 15, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, 2); __PYX_ERR(0, 14, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_initial_jobs)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, 3); __PYX_ERR(0, 15, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, 3); __PYX_ERR(0, 14, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -1932,7 +1932,7 @@ static int __pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_1__init__(PyObjec
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 15, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 14, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1946,21 +1946,21 @@ static int __pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_1__init__(PyObjec
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_temperture = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_temperture == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L3_error)
-    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L3_error)
-    __pyx_v_epoch_len = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epoch_len == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L3_error)
+    __pyx_v_temperture = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_temperture == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 14, __pyx_L3_error)
+    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 14, __pyx_L3_error)
+    __pyx_v_epoch_len = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epoch_len == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 14, __pyx_L3_error)
     __pyx_v_initial_jobs = ((PyObject*)values[3]);
     __pyx_v_file = values[4];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 15, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 14, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("CsimulatedAnnealing.SimulatedAnnealing.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_initial_jobs), (&PyList_Type), 1, "initial_jobs", 1))) __PYX_ERR(0, 15, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_initial_jobs), (&PyList_Type), 1, "initial_jobs", 1))) __PYX_ERR(0, 14, __pyx_L1_error)
   __pyx_r = __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(((struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self), __pyx_v_temperture, __pyx_v_alpha, __pyx_v_epoch_len, __pyx_v_initial_jobs, __pyx_v_file);
 
   /* function exit code */
@@ -1986,7 +1986,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "CsimulatedAnnealing.pyx":16
+  /* "CsimulatedAnnealing.pyx":15
  * 
  *     def __init__(self, double temperture, double alpha, int epoch_len, list initial_jobs, file="./PFSP_benchmark_data_set/tai20_5_1.txt"):
  *         self.temperture = temperture  #             # <<<<<<<<<<<<<<
@@ -1995,7 +1995,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
  */
   __pyx_v_self->temperture = __pyx_v_temperture;
 
-  /* "CsimulatedAnnealing.pyx":17
+  /* "CsimulatedAnnealing.pyx":16
  *     def __init__(self, double temperture, double alpha, int epoch_len, list initial_jobs, file="./PFSP_benchmark_data_set/tai20_5_1.txt"):
  *         self.temperture = temperture  #
  *         self.alpha = alpha  # temperture             # <<<<<<<<<<<<<<
@@ -2004,7 +2004,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
  */
   __pyx_v_self->alpha = __pyx_v_alpha;
 
-  /* "CsimulatedAnnealing.pyx":18
+  /* "CsimulatedAnnealing.pyx":17
  *         self.temperture = temperture  #
  *         self.alpha = alpha  # temperture
  *         self.count_time = 1  #             # <<<<<<<<<<<<<<
@@ -2013,7 +2013,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
  */
   __pyx_v_self->count_time = 1;
 
-  /* "CsimulatedAnnealing.pyx":19
+  /* "CsimulatedAnnealing.pyx":18
  *         self.alpha = alpha  # temperture
  *         self.count_time = 1  #
  *         self.max_count_time = 10000  #             # <<<<<<<<<<<<<<
@@ -2022,80 +2022,83 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
  */
   __pyx_v_self->max_count_time = 0x2710;
 
-  /* "CsimulatedAnnealing.pyx":20
+  /* "CsimulatedAnnealing.pyx":19
  *         self.count_time = 1  #
  *         self.max_count_time = 10000  #
  *         self.epoch_len = epoch_len             # <<<<<<<<<<<<<<
  * 
- *         self.span = Tool().io(file)  #
+ *         self.span = tool.Tool().io(file)  #
  */
   __pyx_v_self->epoch_len = __pyx_v_epoch_len;
 
-  /* "CsimulatedAnnealing.pyx":22
+  /* "CsimulatedAnnealing.pyx":21
  *         self.epoch_len = epoch_len
  * 
- *         self.span = Tool().io(file)  #             # <<<<<<<<<<<<<<
+ *         self.span = tool.Tool().io(file)  #             # <<<<<<<<<<<<<<
  *         self.job_len = len(initial_jobs)
  *         self.min_jobs_seq = initial_jobs  # job
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Tool); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_tool); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_4);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Tool); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
     }
   }
-  __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_io); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_io); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
     if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
       __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
     }
   }
-  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_file) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_file);
+  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_2, __pyx_v_file) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_file);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 22, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->span);
   __Pyx_DECREF(((PyObject *)__pyx_v_self->span));
   __pyx_v_self->span = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "CsimulatedAnnealing.pyx":23
+  /* "CsimulatedAnnealing.pyx":22
  * 
- *         self.span = Tool().io(file)  #
+ *         self.span = tool.Tool().io(file)  #
  *         self.job_len = len(initial_jobs)             # <<<<<<<<<<<<<<
  *         self.min_jobs_seq = initial_jobs  # job
  *         self.min_makespan = tool.makespan(self.span, self.min_jobs_seq)  # makespan
  */
   if (unlikely(__pyx_v_initial_jobs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 23, __pyx_L1_error)
+    __PYX_ERR(0, 22, __pyx_L1_error)
   }
-  __pyx_t_5 = PyList_GET_SIZE(__pyx_v_initial_jobs); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_5 = PyList_GET_SIZE(__pyx_v_initial_jobs); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 22, __pyx_L1_error)
   __pyx_v_self->job_len = __pyx_t_5;
 
-  /* "CsimulatedAnnealing.pyx":24
- *         self.span = Tool().io(file)  #
+  /* "CsimulatedAnnealing.pyx":23
+ *         self.span = tool.Tool().io(file)  #
  *         self.job_len = len(initial_jobs)
  *         self.min_jobs_seq = initial_jobs  # job             # <<<<<<<<<<<<<<
  *         self.min_makespan = tool.makespan(self.span, self.min_jobs_seq)  # makespan
@@ -2107,25 +2110,25 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
   __Pyx_DECREF(__pyx_v_self->min_jobs_seq);
   __pyx_v_self->min_jobs_seq = __pyx_v_initial_jobs;
 
-  /* "CsimulatedAnnealing.pyx":25
+  /* "CsimulatedAnnealing.pyx":24
  *         self.job_len = len(initial_jobs)
  *         self.min_jobs_seq = initial_jobs  # job
  *         self.min_makespan = tool.makespan(self.span, self.min_jobs_seq)  # makespan             # <<<<<<<<<<<<<<
  *         self.makespan_array = [self.min_makespan]  # makespan
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_tool); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 25, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_makespan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_tool); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_makespan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
   __pyx_t_6 = 0;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_2, function);
       __pyx_t_6 = 1;
@@ -2133,51 +2136,51 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, ((PyObject *)__pyx_v_self->span), __pyx_v_self->min_jobs_seq};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    PyObject *__pyx_temp[3] = {__pyx_t_4, ((PyObject *)__pyx_v_self->span), __pyx_v_self->min_jobs_seq};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, ((PyObject *)__pyx_v_self->span), __pyx_v_self->min_jobs_seq};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    PyObject *__pyx_temp[3] = {__pyx_t_4, ((PyObject *)__pyx_v_self->span), __pyx_v_self->min_jobs_seq};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 25, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    if (__pyx_t_3) {
-      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
+    __pyx_t_3 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4); __pyx_t_4 = NULL;
     }
     __Pyx_INCREF(((PyObject *)__pyx_v_self->span));
     __Pyx_GIVEREF(((PyObject *)__pyx_v_self->span));
-    PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_6, ((PyObject *)__pyx_v_self->span));
+    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_6, ((PyObject *)__pyx_v_self->span));
     __Pyx_INCREF(__pyx_v_self->min_jobs_seq);
     __Pyx_GIVEREF(__pyx_v_self->min_jobs_seq);
-    PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_6, __pyx_v_self->min_jobs_seq);
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_6, __pyx_v_self->min_jobs_seq);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->min_makespan = __pyx_t_6;
 
-  /* "CsimulatedAnnealing.pyx":26
+  /* "CsimulatedAnnealing.pyx":25
  *         self.min_jobs_seq = initial_jobs  # job
  *         self.min_makespan = tool.makespan(self.span, self.min_jobs_seq)  # makespan
  *         self.makespan_array = [self.min_makespan]  # makespan             # <<<<<<<<<<<<<<
  * 
  *     def search(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->min_makespan); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->min_makespan); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -2188,7 +2191,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
   __pyx_v_self->makespan_array = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "CsimulatedAnnealing.pyx":15
+  /* "CsimulatedAnnealing.pyx":14
  *     cdef public np.ndarray span
  * 
  *     def __init__(self, double temperture, double alpha, int epoch_len, list initial_jobs, file="./PFSP_benchmark_data_set/tai20_5_1.txt"):             # <<<<<<<<<<<<<<
@@ -2211,7 +2214,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing___init__(struct _
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":28
+/* "CsimulatedAnnealing.pyx":27
  *         self.makespan_array = [self.min_makespan]  # makespan
  * 
  *     def search(self):             # <<<<<<<<<<<<<<
@@ -2247,24 +2250,24 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
   int __pyx_t_5;
   int __pyx_t_6;
   int __pyx_t_7;
-  PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
+  int __pyx_t_8;
+  PyObject *__pyx_t_9 = NULL;
   int __pyx_t_10;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("search", 0);
 
-  /* "CsimulatedAnnealing.pyx":30
+  /* "CsimulatedAnnealing.pyx":29
  *     def search(self):
  *         # print(self.min_jobs_seq)
  *         cdef list jobs_seq = copy.deepcopy(self.min_jobs_seq)             # <<<<<<<<<<<<<<
  *         cdef int makespan = self.min_makespan
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_deepcopy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_deepcopy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -2279,14 +2282,14 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_self->min_jobs_seq) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_self->min_jobs_seq);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 30, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 29, __pyx_L1_error)
   __pyx_v_jobs_seq = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "CsimulatedAnnealing.pyx":31
+  /* "CsimulatedAnnealing.pyx":30
  *         # print(self.min_jobs_seq)
  *         cdef list jobs_seq = copy.deepcopy(self.min_jobs_seq)
  *         cdef int makespan = self.min_makespan             # <<<<<<<<<<<<<<
@@ -2296,30 +2299,30 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
   __pyx_t_4 = __pyx_v_self->min_makespan;
   __pyx_v_makespan = __pyx_t_4;
 
-  /* "CsimulatedAnnealing.pyx":33
+  /* "CsimulatedAnnealing.pyx":32
  *         cdef int makespan = self.min_makespan
  * 
  *         cdef list temp_jobs_seq = []             # <<<<<<<<<<<<<<
  *         cdef int temp_makespan = 999999999
  *         # search
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_temp_jobs_seq = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "CsimulatedAnnealing.pyx":34
+  /* "CsimulatedAnnealing.pyx":33
  * 
  *         cdef list temp_jobs_seq = []
  *         cdef int temp_makespan = 999999999             # <<<<<<<<<<<<<<
  *         # search
- *         while self.count_time < self.max_count_time:
+ * 
  */
   __pyx_v_temp_makespan = 0x3B9AC9FF;
 
-  /* "CsimulatedAnnealing.pyx":36
- *         cdef int temp_makespan = 999999999
- *         # search
+  /* "CsimulatedAnnealing.pyx":37
+ * 
+ *         cdef int l
  *         while self.count_time < self.max_count_time:             # <<<<<<<<<<<<<<
  *             for l in range(self.epoch_len):
  *                 if self.count_time >= self.max_count_time:
@@ -2328,8 +2331,8 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
     __pyx_t_5 = ((__pyx_v_self->count_time < __pyx_v_self->max_count_time) != 0);
     if (!__pyx_t_5) break;
 
-    /* "CsimulatedAnnealing.pyx":37
- *         # search
+    /* "CsimulatedAnnealing.pyx":38
+ *         cdef int l
  *         while self.count_time < self.max_count_time:
  *             for l in range(self.epoch_len):             # <<<<<<<<<<<<<<
  *                 if self.count_time >= self.max_count_time:
@@ -2340,7 +2343,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
       __pyx_v_l = __pyx_t_7;
 
-      /* "CsimulatedAnnealing.pyx":38
+      /* "CsimulatedAnnealing.pyx":39
  *         while self.count_time < self.max_count_time:
  *             for l in range(self.epoch_len):
  *                 if self.count_time >= self.max_count_time:             # <<<<<<<<<<<<<<
@@ -2350,7 +2353,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
       __pyx_t_5 = ((__pyx_v_self->count_time >= __pyx_v_self->max_count_time) != 0);
       if (__pyx_t_5) {
 
-        /* "CsimulatedAnnealing.pyx":39
+        /* "CsimulatedAnnealing.pyx":40
  *             for l in range(self.epoch_len):
  *                 if self.count_time >= self.max_count_time:
  *                     break             # <<<<<<<<<<<<<<
@@ -2359,7 +2362,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
         goto __pyx_L6_break;
 
-        /* "CsimulatedAnnealing.pyx":38
+        /* "CsimulatedAnnealing.pyx":39
  *         while self.count_time < self.max_count_time:
  *             for l in range(self.epoch_len):
  *                 if self.count_time >= self.max_count_time:             # <<<<<<<<<<<<<<
@@ -2368,61 +2371,46 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
       }
 
-      /* "CsimulatedAnnealing.pyx":41
+      /* "CsimulatedAnnealing.pyx":42
  *                     break
  * 
  *                 temp_jobs_seq = self.generateNewJobSeq(jobs_seq)             # <<<<<<<<<<<<<<
- *                 temp_makespan = Tool().makespan(self.span, temp_jobs_seq)
+ *                 temp_makespan = tool.makespan(self.span, temp_jobs_seq)
  * 
  */
-      __pyx_t_1 = ((struct __pyx_vtabstruct_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self->__pyx_vtab)->generateNewJobSeq(__pyx_v_self, __pyx_v_jobs_seq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+      __pyx_t_1 = ((struct __pyx_vtabstruct_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self->__pyx_vtab)->generateNewJobSeq(__pyx_v_self, __pyx_v_jobs_seq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF_SET(__pyx_v_temp_jobs_seq, ((PyObject*)__pyx_t_1));
       __pyx_t_1 = 0;
 
-      /* "CsimulatedAnnealing.pyx":42
+      /* "CsimulatedAnnealing.pyx":43
  * 
  *                 temp_jobs_seq = self.generateNewJobSeq(jobs_seq)
- *                 temp_makespan = Tool().makespan(self.span, temp_jobs_seq)             # <<<<<<<<<<<<<<
+ *                 temp_makespan = tool.makespan(self.span, temp_jobs_seq)             # <<<<<<<<<<<<<<
  * 
  *                 self.count_time += 1
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Tool); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
-        __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_2);
-        if (likely(__pyx_t_8)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-          __Pyx_INCREF(__pyx_t_8);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_2, function);
-        }
-      }
-      __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
-      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_tool); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_makespan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_makespan); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_t_3 = NULL;
-      __pyx_t_9 = 0;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_8 = 0;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
         __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
         if (likely(__pyx_t_3)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
           __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_2, function);
-          __pyx_t_9 = 1;
+          __pyx_t_8 = 1;
         }
       }
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[3] = {__pyx_t_3, ((PyObject *)__pyx_v_self->span), __pyx_v_temp_jobs_seq};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
@@ -2430,34 +2418,34 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
         PyObject *__pyx_temp[3] = {__pyx_t_3, ((PyObject *)__pyx_v_self->span), __pyx_v_temp_jobs_seq};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_8, 2+__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
       } else
       #endif
       {
-        __pyx_t_8 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 42, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_9 = PyTuple_New(2+__pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 43, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
         if (__pyx_t_3) {
-          __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_3); __pyx_t_3 = NULL;
+          __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_3); __pyx_t_3 = NULL;
         }
         __Pyx_INCREF(((PyObject *)__pyx_v_self->span));
         __Pyx_GIVEREF(((PyObject *)__pyx_v_self->span));
-        PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_9, ((PyObject *)__pyx_v_self->span));
+        PyTuple_SET_ITEM(__pyx_t_9, 0+__pyx_t_8, ((PyObject *)__pyx_v_self->span));
         __Pyx_INCREF(__pyx_v_temp_jobs_seq);
         __Pyx_GIVEREF(__pyx_v_temp_jobs_seq);
-        PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_9, __pyx_v_temp_jobs_seq);
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+        PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_8, __pyx_v_temp_jobs_seq);
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_9, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_v_temp_makespan = __pyx_t_9;
+      __pyx_v_temp_makespan = __pyx_t_8;
 
-      /* "CsimulatedAnnealing.pyx":44
- *                 temp_makespan = Tool().makespan(self.span, temp_jobs_seq)
+      /* "CsimulatedAnnealing.pyx":45
+ *                 temp_makespan = tool.makespan(self.span, temp_jobs_seq)
  * 
  *                 self.count_time += 1             # <<<<<<<<<<<<<<
  *                 # print('', self.count_time, '')
@@ -2465,7 +2453,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
       __pyx_v_self->count_time = (__pyx_v_self->count_time + 1);
 
-      /* "CsimulatedAnnealing.pyx":47
+      /* "CsimulatedAnnealing.pyx":48
  *                 # print('', self.count_time, '')
  * 
  *                 if temp_makespan < self.min_makespan:             # <<<<<<<<<<<<<<
@@ -2475,7 +2463,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
       __pyx_t_5 = ((__pyx_v_temp_makespan < __pyx_v_self->min_makespan) != 0);
       if (__pyx_t_5) {
 
-        /* "CsimulatedAnnealing.pyx":49
+        /* "CsimulatedAnnealing.pyx":50
  *                 if temp_makespan < self.min_makespan:
  *                     #self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
  *                     self.min_jobs_seq = temp_jobs_seq             # <<<<<<<<<<<<<<
@@ -2488,7 +2476,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
         __Pyx_DECREF(__pyx_v_self->min_jobs_seq);
         __pyx_v_self->min_jobs_seq = __pyx_v_temp_jobs_seq;
 
-        /* "CsimulatedAnnealing.pyx":50
+        /* "CsimulatedAnnealing.pyx":51
  *                     #self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
  *                     self.min_jobs_seq = temp_jobs_seq
  *                     self.min_makespan = makespan             # <<<<<<<<<<<<<<
@@ -2497,7 +2485,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
         __pyx_v_self->min_makespan = __pyx_v_makespan;
 
-        /* "CsimulatedAnnealing.pyx":47
+        /* "CsimulatedAnnealing.pyx":48
  *                 # print('', self.count_time, '')
  * 
  *                 if temp_makespan < self.min_makespan:             # <<<<<<<<<<<<<<
@@ -2506,7 +2494,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
       }
 
-      /* "CsimulatedAnnealing.pyx":52
+      /* "CsimulatedAnnealing.pyx":53
  *                     self.min_makespan = makespan
  * 
  *                 if temp_makespan < makespan:             # <<<<<<<<<<<<<<
@@ -2516,7 +2504,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
       __pyx_t_5 = ((__pyx_v_temp_makespan < __pyx_v_makespan) != 0);
       if (__pyx_t_5) {
 
-        /* "CsimulatedAnnealing.pyx":53
+        /* "CsimulatedAnnealing.pyx":54
  * 
  *                 if temp_makespan < makespan:
  *                     jobs_seq = temp_jobs_seq             # <<<<<<<<<<<<<<
@@ -2526,7 +2514,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
         __Pyx_INCREF(__pyx_v_temp_jobs_seq);
         __Pyx_DECREF_SET(__pyx_v_jobs_seq, __pyx_v_temp_jobs_seq);
 
-        /* "CsimulatedAnnealing.pyx":54
+        /* "CsimulatedAnnealing.pyx":55
  *                 if temp_makespan < makespan:
  *                     jobs_seq = temp_jobs_seq
  *                     makespan = temp_makespan             # <<<<<<<<<<<<<<
@@ -2535,7 +2523,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
         __pyx_v_makespan = __pyx_v_temp_makespan;
 
-        /* "CsimulatedAnnealing.pyx":52
+        /* "CsimulatedAnnealing.pyx":53
  *                     self.min_makespan = makespan
  * 
  *                 if temp_makespan < makespan:             # <<<<<<<<<<<<<<
@@ -2545,44 +2533,44 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
         goto __pyx_L9;
       }
 
-      /* "CsimulatedAnnealing.pyx":57
+      /* "CsimulatedAnnealing.pyx":58
  *                     # self.makespan_array.append(temp_makespan)
  *                 #
  *                 elif math.exp((makespan - temp_makespan) / self.temperture) > random.random():             # <<<<<<<<<<<<<<
  *                     jobs_seq = temp_jobs_seq
  *                     makespan = temp_makespan
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_math); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_math); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_exp); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 57, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_exp); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_9 = (__pyx_v_makespan - __pyx_v_temp_makespan);
+      __pyx_t_8 = (__pyx_v_makespan - __pyx_v_temp_makespan);
       if (unlikely(__pyx_v_self->temperture == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-        __PYX_ERR(0, 57, __pyx_L1_error)
+        __PYX_ERR(0, 58, __pyx_L1_error)
       }
-      __pyx_t_2 = PyFloat_FromDouble((__pyx_t_9 / __pyx_v_self->temperture)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+      __pyx_t_2 = PyFloat_FromDouble((__pyx_t_8 / __pyx_v_self->temperture)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_3 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
-        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_8);
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_9);
         if (likely(__pyx_t_3)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
           __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_8, function);
+          __Pyx_DECREF_SET(__pyx_t_9, function);
         }
       }
-      __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_2);
+      __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_2);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_2 = NULL;
@@ -2595,19 +2583,19 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
           __Pyx_DECREF_SET(__pyx_t_3, function);
         }
       }
-      __pyx_t_8 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+      __pyx_t_9 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 57, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
+      if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_8, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
+      __pyx_t_3 = PyObject_RichCompare(__pyx_t_1, __pyx_t_9, Py_GT); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 58, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_5) {
 
-        /* "CsimulatedAnnealing.pyx":58
+        /* "CsimulatedAnnealing.pyx":59
  *                 #
  *                 elif math.exp((makespan - temp_makespan) / self.temperture) > random.random():
  *                     jobs_seq = temp_jobs_seq             # <<<<<<<<<<<<<<
@@ -2617,7 +2605,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
         __Pyx_INCREF(__pyx_v_temp_jobs_seq);
         __Pyx_DECREF_SET(__pyx_v_jobs_seq, __pyx_v_temp_jobs_seq);
 
-        /* "CsimulatedAnnealing.pyx":59
+        /* "CsimulatedAnnealing.pyx":60
  *                 elif math.exp((makespan - temp_makespan) / self.temperture) > random.random():
  *                     jobs_seq = temp_jobs_seq
  *                     makespan = temp_makespan             # <<<<<<<<<<<<<<
@@ -2626,7 +2614,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
         __pyx_v_makespan = __pyx_v_temp_makespan;
 
-        /* "CsimulatedAnnealing.pyx":57
+        /* "CsimulatedAnnealing.pyx":58
  *                     # self.makespan_array.append(temp_makespan)
  *                 #
  *                 elif math.exp((makespan - temp_makespan) / self.temperture) > random.random():             # <<<<<<<<<<<<<<
@@ -2636,7 +2624,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
       }
       __pyx_L9:;
 
-      /* "CsimulatedAnnealing.pyx":60
+      /* "CsimulatedAnnealing.pyx":61
  *                     jobs_seq = temp_jobs_seq
  *                     makespan = temp_makespan
  *                 self.makespan_array.append(makespan)             # <<<<<<<<<<<<<<
@@ -2645,43 +2633,39 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  */
       if (unlikely(__pyx_v_self->makespan_array == Py_None)) {
         PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "append");
-        __PYX_ERR(0, 60, __pyx_L1_error)
+        __PYX_ERR(0, 61, __pyx_L1_error)
       }
-      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_makespan); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_makespan); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_self->makespan_array, __pyx_t_3); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 60, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_self->makespan_array, __pyx_t_3); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 61, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __pyx_L6_break:;
 
     /* "CsimulatedAnnealing.pyx":65
+ *             # if self.count_time >= self.max_count_time:
  *             #     break
- *             #self.calculateEpoch()
+ *             self.calculateEpoch()             # <<<<<<<<<<<<<<
+ *             self.calculateTemperture()
+ * 
+ */
+    __pyx_t_3 = ((struct __pyx_vtabstruct_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self->__pyx_vtab)->calculateEpoch(__pyx_v_self); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "CsimulatedAnnealing.pyx":66
+ *             #     break
+ *             self.calculateEpoch()
  *             self.calculateTemperture()             # <<<<<<<<<<<<<<
  * 
  *         # print('makespanjob_seq')
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_calculateTemperture); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 65, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_1 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_8);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-        __Pyx_INCREF(__pyx_t_1);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_8, function);
-      }
-    }
-    __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_3 = ((struct __pyx_vtabstruct_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self->__pyx_vtab)->calculateTemperture(__pyx_v_self); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "CsimulatedAnnealing.pyx":28
+  /* "CsimulatedAnnealing.pyx":27
  *         self.makespan_array = [self.min_makespan]  # makespan
  * 
  *     def search(self):             # <<<<<<<<<<<<<<
@@ -2696,7 +2680,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
   __Pyx_AddTraceback("CsimulatedAnnealing.SimulatedAnnealing.search", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2707,7 +2691,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":72
+/* "CsimulatedAnnealing.pyx":73
  *         # print(self.min_makespan)
  * 
  *     cdef list generateNewJobSeq(self, jobs_seq):             # <<<<<<<<<<<<<<
@@ -2733,16 +2717,16 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("generateNewJobSeq", 0);
 
-  /* "CsimulatedAnnealing.pyx":73
+  /* "CsimulatedAnnealing.pyx":74
  * 
  *     cdef list generateNewJobSeq(self, jobs_seq):
  *         cdef list temp_jobs_seq = copy.deepcopy(jobs_seq)             # <<<<<<<<<<<<<<
  *         #
  *         cdef int first_elememt = random.randint(0, self.job_len-1)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_deepcopy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_deepcopy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -2757,26 +2741,26 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_jobs_seq) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_jobs_seq);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(0, 74, __pyx_L1_error)
   __pyx_v_temp_jobs_seq = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "CsimulatedAnnealing.pyx":75
+  /* "CsimulatedAnnealing.pyx":76
  *         cdef list temp_jobs_seq = copy.deepcopy(jobs_seq)
  *         #
  *         cdef int first_elememt = random.randint(0, self.job_len-1)             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_random); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_randint); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_randint); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_self->job_len - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_long((__pyx_v_self->job_len - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -2793,7 +2777,7 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_int_0, __pyx_t_3};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2802,14 +2786,14 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_int_0, __pyx_t_3};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else
   #endif
   {
-    __pyx_t_6 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -2820,28 +2804,28 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_5, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_first_elememt = __pyx_t_5;
 
-  /* "CsimulatedAnnealing.pyx":78
+  /* "CsimulatedAnnealing.pyx":79
  * 
  *         #
  *         cdef int second_elememt = random.randint(0, self.job_len-1)             # <<<<<<<<<<<<<<
  * 
  *         while second_elememt == first_elememt:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randint); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randint); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_self->job_len - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_self->job_len - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_5 = 0;
@@ -2858,7 +2842,7 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_int_0, __pyx_t_2};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2867,14 +2851,14 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_int_0, __pyx_t_2};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_3) {
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -2885,16 +2869,16 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_5, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_second_elememt = __pyx_t_5;
 
-  /* "CsimulatedAnnealing.pyx":80
+  /* "CsimulatedAnnealing.pyx":81
  *         cdef int second_elememt = random.randint(0, self.job_len-1)
  * 
  *         while second_elememt == first_elememt:             # <<<<<<<<<<<<<<
@@ -2905,19 +2889,19 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
     __pyx_t_7 = ((__pyx_v_second_elememt == __pyx_v_first_elememt) != 0);
     if (!__pyx_t_7) break;
 
-    /* "CsimulatedAnnealing.pyx":81
+    /* "CsimulatedAnnealing.pyx":82
  * 
  *         while second_elememt == first_elememt:
  *             second_elememt = random.randint(0, self.job_len-1)             # <<<<<<<<<<<<<<
  * 
  *         # indexjob_seq
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_random); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_randint); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_randint); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyInt_From_long((__pyx_v_self->job_len - 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_long((__pyx_v_self->job_len - 1)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_2 = NULL;
     __pyx_t_5 = 0;
@@ -2934,7 +2918,7 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_int_0, __pyx_t_6};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -2943,14 +2927,14 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_int_0, __pyx_t_6};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else
     #endif
     {
-      __pyx_t_3 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
+      __pyx_t_3 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       if (__pyx_t_2) {
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -2961,17 +2945,17 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
       __Pyx_GIVEREF(__pyx_t_6);
       PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_5, __pyx_t_6);
       __pyx_t_6 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 81, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_second_elememt = __pyx_t_5;
   }
 
-  /* "CsimulatedAnnealing.pyx":84
+  /* "CsimulatedAnnealing.pyx":85
  * 
  *         # indexjob_seq
  *         temp_jobs_seq[first_elememt], temp_jobs_seq[second_elememt] = temp_jobs_seq[second_elememt], temp_jobs_seq[first_elememt]             # <<<<<<<<<<<<<<
@@ -2980,42 +2964,42 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
  */
   if (unlikely(__pyx_v_temp_jobs_seq == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 84, __pyx_L1_error)
+    __PYX_ERR(0, 85, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_temp_jobs_seq, __pyx_v_second_elememt, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_temp_jobs_seq, __pyx_v_second_elememt, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_temp_jobs_seq == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 84, __pyx_L1_error)
+    __PYX_ERR(0, 85, __pyx_L1_error)
   }
-  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_temp_jobs_seq, __pyx_v_first_elememt, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_temp_jobs_seq, __pyx_v_first_elememt, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (unlikely(__pyx_v_temp_jobs_seq == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 84, __pyx_L1_error)
+    __PYX_ERR(0, 85, __pyx_L1_error)
   }
-  if (unlikely(__Pyx_SetItemInt(__pyx_v_temp_jobs_seq, __pyx_v_first_elememt, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(__pyx_v_temp_jobs_seq, __pyx_v_first_elememt, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (unlikely(__pyx_v_temp_jobs_seq == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 84, __pyx_L1_error)
+    __PYX_ERR(0, 85, __pyx_L1_error)
   }
-  if (unlikely(__Pyx_SetItemInt(__pyx_v_temp_jobs_seq, __pyx_v_second_elememt, __pyx_t_4, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (unlikely(__Pyx_SetItemInt(__pyx_v_temp_jobs_seq, __pyx_v_second_elememt, __pyx_t_4, int, 1, __Pyx_PyInt_From_int, 1, 1, 1) < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "CsimulatedAnnealing.pyx":86
+  /* "CsimulatedAnnealing.pyx":87
  *         temp_jobs_seq[first_elememt], temp_jobs_seq[second_elememt] = temp_jobs_seq[second_elememt], temp_jobs_seq[first_elememt]
  * 
  *         return temp_jobs_seq             # <<<<<<<<<<<<<<
  * 
- *     def calculateEpoch(self):
+ *     cdef calculateEpoch(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_temp_jobs_seq);
   __pyx_r = __pyx_v_temp_jobs_seq;
   goto __pyx_L0;
 
-  /* "CsimulatedAnnealing.pyx":72
+  /* "CsimulatedAnnealing.pyx":73
  *         # print(self.min_makespan)
  * 
  *     cdef list generateNewJobSeq(self, jobs_seq):             # <<<<<<<<<<<<<<
@@ -3039,47 +3023,34 @@ static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJ
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":88
+/* "CsimulatedAnnealing.pyx":89
  *         return temp_jobs_seq
  * 
- *     def calculateEpoch(self):             # <<<<<<<<<<<<<<
+ *     cdef calculateEpoch(self):             # <<<<<<<<<<<<<<
  *         self.epoch_len = self.epoch_len
  * 
  */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_5calculateEpoch(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_5calculateEpoch(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("calculateEpoch (wrapper)", 0);
-  __pyx_r = __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4calculateEpoch(((struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4calculateEpoch(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self) {
+static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_calculateEpoch(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("calculateEpoch", 0);
 
-  /* "CsimulatedAnnealing.pyx":89
+  /* "CsimulatedAnnealing.pyx":90
  * 
- *     def calculateEpoch(self):
+ *     cdef calculateEpoch(self):
  *         self.epoch_len = self.epoch_len             # <<<<<<<<<<<<<<
  * 
- *     def calculateTemperture(self):
+ *     cdef calculateTemperture(self):
  */
   __pyx_t_1 = __pyx_v_self->epoch_len;
   __pyx_v_self->epoch_len = __pyx_t_1;
 
-  /* "CsimulatedAnnealing.pyx":88
+  /* "CsimulatedAnnealing.pyx":89
  *         return temp_jobs_seq
  * 
- *     def calculateEpoch(self):             # <<<<<<<<<<<<<<
+ *     cdef calculateEpoch(self):             # <<<<<<<<<<<<<<
  *         self.epoch_len = self.epoch_len
  * 
  */
@@ -3091,45 +3062,32 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4calculateE
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":91
+/* "CsimulatedAnnealing.pyx":92
  *         self.epoch_len = self.epoch_len
  * 
- *     def calculateTemperture(self):             # <<<<<<<<<<<<<<
+ *     cdef calculateTemperture(self):             # <<<<<<<<<<<<<<
  *         self.temperture *= self.alpha
  * 
  */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_7calculateTemperture(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_7calculateTemperture(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("calculateTemperture (wrapper)", 0);
-  __pyx_r = __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_6calculateTemperture(((struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_6calculateTemperture(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self) {
+static PyObject *__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_calculateTemperture(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("calculateTemperture", 0);
 
-  /* "CsimulatedAnnealing.pyx":92
+  /* "CsimulatedAnnealing.pyx":93
  * 
- *     def calculateTemperture(self):
+ *     cdef calculateTemperture(self):
  *         self.temperture *= self.alpha             # <<<<<<<<<<<<<<
  * 
  * 
  */
   __pyx_v_self->temperture = (__pyx_v_self->temperture * __pyx_v_self->alpha);
 
-  /* "CsimulatedAnnealing.pyx":91
+  /* "CsimulatedAnnealing.pyx":92
  *         self.epoch_len = self.epoch_len
  * 
- *     def calculateTemperture(self):             # <<<<<<<<<<<<<<
+ *     cdef calculateTemperture(self):             # <<<<<<<<<<<<<<
  *         self.temperture *= self.alpha
  * 
  */
@@ -3141,7 +3099,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_6calculateT
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":10
+/* "CsimulatedAnnealing.pyx":9
  * 
  * cdef class SimulatedAnnealing:
  *     cdef public int epoch_len, count_time, max_count_time, job_len, min_makespan             # <<<<<<<<<<<<<<
@@ -3171,7 +3129,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_9epoch_len_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->epoch_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->epoch_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3209,7 +3167,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_9epoch_len_2__set
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L1_error)
   __pyx_v_self->epoch_len = __pyx_t_1;
 
   /* function exit code */
@@ -3245,7 +3203,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10count_tim
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->count_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->count_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3283,7 +3241,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10count_time_2__s
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L1_error)
   __pyx_v_self->count_time = __pyx_t_1;
 
   /* function exit code */
@@ -3319,7 +3277,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_14max_count
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->max_count_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->max_count_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3357,7 +3315,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_14max_count_time_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L1_error)
   __pyx_v_self->max_count_time = __pyx_t_1;
 
   /* function exit code */
@@ -3393,7 +3351,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_7job_len___
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->job_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->job_len); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3431,7 +3389,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_7job_len_2__set__
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L1_error)
   __pyx_v_self->job_len = __pyx_t_1;
 
   /* function exit code */
@@ -3467,7 +3425,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_12min_makes
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->min_makespan); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->min_makespan); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3505,7 +3463,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_12min_makespan_2_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L1_error)
   __pyx_v_self->min_makespan = __pyx_t_1;
 
   /* function exit code */
@@ -3519,7 +3477,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_12min_makespan_2_
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":11
+/* "CsimulatedAnnealing.pyx":10
  * cdef class SimulatedAnnealing:
  *     cdef public int epoch_len, count_time, max_count_time, job_len, min_makespan
  *     cdef public double alpha, temperture             # <<<<<<<<<<<<<<
@@ -3549,7 +3507,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_5alpha___ge
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->alpha); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->alpha); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3587,7 +3545,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_5alpha_2__set__(s
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
   __pyx_v_self->alpha = __pyx_t_1;
 
   /* function exit code */
@@ -3623,7 +3581,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10tempertur
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->temperture); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->temperture); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3661,7 +3619,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10temperture_2__s
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
   __pyx_v_self->temperture = __pyx_t_1;
 
   /* function exit code */
@@ -3675,7 +3633,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10temperture_2__s
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":12
+/* "CsimulatedAnnealing.pyx":11
  *     cdef public int epoch_len, count_time, max_count_time, job_len, min_makespan
  *     cdef public double alpha, temperture
  *     cdef public list min_jobs_seq, makespan_array             # <<<<<<<<<<<<<<
@@ -3733,7 +3691,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_12min_jobs_seq_2_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 11, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -3833,7 +3791,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_14makespan_array_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(0, 11, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -3883,7 +3841,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_14makespan_array_
   return __pyx_r;
 }
 
-/* "CsimulatedAnnealing.pyx":13
+/* "CsimulatedAnnealing.pyx":12
  *     cdef public double alpha, temperture
  *     cdef public list min_jobs_seq, makespan_array
  *     cdef public np.ndarray span             # <<<<<<<<<<<<<<
@@ -3941,7 +3899,7 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4span_2__set__(st
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 12, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -3998,19 +3956,19 @@ static int __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4span_4__del__(st
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_9__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_9__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_8__reduce_cython__(((struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self));
+  __pyx_r = __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4__reduce_cython__(((struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_8__reduce_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self) {
+static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_4__reduce_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -4302,19 +4260,19 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_8__reduce_c
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_11__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_11__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10__setstate_cython__(((struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_6__setstate_cython__(((struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_10__setstate_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_6__setstate_cython__(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6058,10 +6016,8 @@ static int __pyx_setprop_19CsimulatedAnnealing_18SimulatedAnnealing_span(PyObjec
 
 static PyMethodDef __pyx_methods_19CsimulatedAnnealing_SimulatedAnnealing[] = {
   {"search", (PyCFunction)__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_3search, METH_NOARGS, 0},
-  {"calculateEpoch", (PyCFunction)__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_5calculateEpoch, METH_NOARGS, 0},
-  {"calculateTemperture", (PyCFunction)__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_7calculateTemperture, METH_NOARGS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_9__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_11__setstate_cython__, METH_O, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_5__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_19CsimulatedAnnealing_18SimulatedAnnealing_7__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -6202,7 +6158,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_SimulatedAnnealing, __pyx_k_SimulatedAnnealing, sizeof(__pyx_k_SimulatedAnnealing), 0, 0, 1, 1},
   {&__pyx_n_s_Tool, __pyx_k_Tool, sizeof(__pyx_k_Tool), 0, 0, 1, 1},
   {&__pyx_n_s_alpha, __pyx_k_alpha, sizeof(__pyx_k_alpha), 0, 0, 1, 1},
-  {&__pyx_n_s_calculateTemperture, __pyx_k_calculateTemperture, sizeof(__pyx_k_calculateTemperture), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_deepcopy, __pyx_k_deepcopy, sizeof(__pyx_k_deepcopy), 0, 0, 1, 1},
@@ -6245,7 +6200,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 38, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(2, 947, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -6344,16 +6299,18 @@ static int __Pyx_modinit_type_init_code(void) {
   /*--- Type init code ---*/
   __pyx_vtabptr_19CsimulatedAnnealing_SimulatedAnnealing = &__pyx_vtable_19CsimulatedAnnealing_SimulatedAnnealing;
   __pyx_vtable_19CsimulatedAnnealing_SimulatedAnnealing.generateNewJobSeq = (PyObject *(*)(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *, PyObject *))__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_generateNewJobSeq;
-  if (PyType_Ready(&__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_vtable_19CsimulatedAnnealing_SimulatedAnnealing.calculateEpoch = (PyObject *(*)(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *))__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_calculateEpoch;
+  __pyx_vtable_19CsimulatedAnnealing_SimulatedAnnealing.calculateTemperture = (PyObject *(*)(struct __pyx_obj_19CsimulatedAnnealing_SimulatedAnnealing *))__pyx_f_19CsimulatedAnnealing_18SimulatedAnnealing_calculateTemperture;
+  if (PyType_Ready(&__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19CsimulatedAnnealing_SimulatedAnnealing.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing.tp_dictoffset && __pyx_type_19CsimulatedAnnealing_SimulatedAnnealing.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19CsimulatedAnnealing_SimulatedAnnealing.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing.tp_dict, __pyx_vtabptr_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SimulatedAnnealing, (PyObject *)&__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing.tp_dict, __pyx_vtabptr_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SimulatedAnnealing, (PyObject *)&__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __pyx_ptype_19CsimulatedAnnealing_SimulatedAnnealing = &__pyx_type_19CsimulatedAnnealing_SimulatedAnnealing;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -6533,7 +6490,6 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_CsimulatedAnnealing(PyObject *__py
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -6642,90 +6598,69 @@ if (!__Pyx_RefNanny) {
   #endif
 
   /* "CsimulatedAnnealing.pyx":1
- * from tool import Tool             # <<<<<<<<<<<<<<
- * import tool
- * import math
- */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_n_s_Tool);
-  __Pyx_GIVEREF(__pyx_n_s_Tool);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_Tool);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_tool, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Tool); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Tool, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "CsimulatedAnnealing.pyx":2
- * from tool import Tool
  * import tool             # <<<<<<<<<<<<<<
  * import math
  * import random
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_tool, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tool, __pyx_t_2) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tool, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tool, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "CsimulatedAnnealing.pyx":3
- * from tool import Tool
+  /* "CsimulatedAnnealing.pyx":2
  * import tool
  * import math             # <<<<<<<<<<<<<<
  * import random
  * import copy
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_math, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_math, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_math, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_math, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "CsimulatedAnnealing.pyx":4
+  /* "CsimulatedAnnealing.pyx":3
  * import tool
  * import math
  * import random             # <<<<<<<<<<<<<<
  * import copy
  * cimport numpy as np
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_random, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "CsimulatedAnnealing.pyx":5
+  /* "CsimulatedAnnealing.pyx":4
  * import math
  * import random
  * import copy             # <<<<<<<<<<<<<<
  * cimport numpy as np
  * 
  */
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_copy, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_copy, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_copy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_copy, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_SimulatedAnnealing(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_19CsimulatedAnnealing_1__pyx_unpickle_SimulatedAnnealing, NULL, __pyx_n_s_CsimulatedAnnealing); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_SimulatedAnnealin, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_19CsimulatedAnnealing_1__pyx_unpickle_SimulatedAnnealing, NULL, __pyx_n_s_CsimulatedAnnealing); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_SimulatedAnnealin, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "CsimulatedAnnealing.pyx":1
- * from tool import Tool             # <<<<<<<<<<<<<<
- * import tool
+ * import tool             # <<<<<<<<<<<<<<
  * import math
+ * import random
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "../../../../../Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/numpy/__init__.pxd":1016
  * 
@@ -6740,7 +6675,6 @@ if (!__Pyx_RefNanny) {
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init CsimulatedAnnealing", __pyx_clineno, __pyx_lineno, __pyx_filename);

@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
         # 開始測量
         start = time.time()
-        ma = MA.MemeticAlgorithm(file_path=mypath + 'tai20_10_1.txt', csv_pd=csv_pd)
+        ma = MA.MemeticAlgorithm(file_path=mypath + 'tai20_5_1.txt', csv_pd=csv_pd)
         # 結束測量
         end = time.time()
 
