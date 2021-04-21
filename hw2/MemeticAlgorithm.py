@@ -1,8 +1,11 @@
 import random
 import tool
-import simulatedAnnealing as SA
+from CsimulatedAnnealing import SimulatedAnnealing
 import pandas as pd
+import numpy as np
 import logging
+import time
+
 
 
 class MemeticAlgorithm:
@@ -40,7 +43,7 @@ class MemeticAlgorithm:
         #initial先local search
         for i in range(self.need_search_num):
             #print(self.population['jobs'][i], self.population['makespans'][i])
-            SA_search = SA.SimulatedAnnealing(
+            SA_search = SimulatedAnnealing(
                 self.SA_init_temp, self.SA_init_alpha, self.SA_init_epoch_len, self.population['jobs'][i], self.test_data_path)
             SA_search.search()
             if self.search_alter:
@@ -58,6 +61,7 @@ class MemeticAlgorithm:
         epoch_len = 24
 
         for i in range(epoch_len):
+            start = time.time()
             print('epoch', i)
             # self.population = self.evaluation(self.population)
             df = self.mating_selection(self.population)
@@ -79,7 +83,7 @@ class MemeticAlgorithm:
             self.population.drop(labels=["index"], axis="columns", inplace=True)
 
             for i in range(self.need_search_num):
-                SA_search = SA.SimulatedAnnealing(
+                SA_search = SimulatedAnnealing(
                     self.SA_init_temp, self.SA_init_alpha, self.SA_init_epoch_len, self.population['jobs'][i], self.test_data_path)
                 SA_search.search()
                 if self.search_alter:
@@ -90,6 +94,8 @@ class MemeticAlgorithm:
             #logging.info('min_makespan: %d' % self.min_makespan)
 
             self.min_makespan_each_gen_list.append(self.min_makespan)
+            end = time.time()
+            print("執行時間：%f 秒" % (end - start))
 
         print('end search')
         return self.min_makespan_each_gen_list
@@ -98,7 +104,7 @@ class MemeticAlgorithm:
     def evaluation(self, df):
         size = len(df.index)
         for i in range(size):
-            df.loc[i, 'makespans'] = self.tool.makespan(self.span, df['jobs'][i])
+            df.loc[i, 'makespans'] = tool.makespan(np.array(self.span), df['jobs'][i])
 
         return df
 
