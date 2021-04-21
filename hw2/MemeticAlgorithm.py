@@ -15,7 +15,7 @@ class MemeticAlgorithm:
         self.span = self.tool.io(self.test_data_path)  # 測資
         self.job_len = len(self.span[0])
         self.population_len = 4
-        self.search_alter = False #True 代表local search會把排列也更新， False則不會，只更新makespans
+        self.search_alter = True #True 代表local search會把排列也更新， False則不會，只更新makespans
         self.need_search_num = 4
         self.min_makespan_each_gen_list = []
 
@@ -55,7 +55,7 @@ class MemeticAlgorithm:
 
     def search(self):
         print('start search')
-        epoch_len = 20
+        epoch_len = 24
 
         for i in range(epoch_len):
             print('epoch', i)
