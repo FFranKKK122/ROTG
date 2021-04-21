@@ -7,16 +7,16 @@ import logging
 
 class MemeticAlgorithm:
 
-    def __init__(self, file_path, csv_pd):
+    def __init__(self, file_path ):
         print('init')
         self.test_data_path = file_path
         self.tool = tool.Tool()
         self.max_span_time = 10000
         self.span = self.tool.io(self.test_data_path)  # 測資
         self.job_len = len(self.span[0])
-        self.population_len = 4
+        self.population_len = 50
         self.search_alter = False #True 代表local search會把排列也更新， False則不會，只更新makespans
-        self.need_search_num = 4
+        self.need_search_num = 5
         self.min_makespan_each_gen_list = []
 
         #random.seed(0)
@@ -60,19 +60,35 @@ class MemeticAlgorithm:
         for i in range(epoch_len):
             print('epoch', i)
             # self.population = self.evaluation(self.population)
-            df = self.mating_selection(self.population)
-            df2 = self.mating_selection(self.population)
+            # df = self.mating_selection(self.population)
+            # df2 = self.mating_selection(self.population)
 
-            offspring, span = self.reproduction(df)
-            offspring1, span1 = self.reproduction(df2)
-            offspring += offspring1
-            span += span1
+            # offspring, span = self.reproduction(df)
+            # offspring1, span1 = self.reproduction(df2)
+            # offspring += offspring1
+            # span += span1
 
-            population = pd.DataFrame()
-            population['jobs'] = offspring
-            population['makespans'] = span
-            population = self.evaluation(population)
-            self.environmental_selection(self.population, population)
+            # population = pd.DataFrame()
+            # population['jobs'] = offspring
+            # population['makespans'] = span
+            # population = self.evaluation(population)
+            # self.environmental_selection(self.population, population)
+
+            # 優生學
+            offspring_list = []
+            span_list = []
+            for i in range(0, self.population_len, 2):
+                parents = self.population[i:i+1]
+                offspring, span = self.reproduction_lox(parents)
+                offspring_list += offspring
+                span_list += span
+
+            offspring_population = pd.DataFrame()
+            offspring_population['jobs'] = offspring_list
+            offspring_population['makespans'] = span_list
+            offspring_population = self.evaluation(offspring_population)
+
+            self.environmental_selection(self.population, offspring_population)
 
             self.population.sort_values('makespans', ascending=True, inplace=True)
             self.population.reset_index(inplace=True)
@@ -102,8 +118,8 @@ class MemeticAlgorithm:
 
         return df
 
-    def reproduction(self, Parents):
-        # use 'linear order crossover'
+    #lox stand for  linear order crossover
+    def reproduction_lox(self, Parents):
         max_gene_fixed_len =  self.job_len - 2
 
         gene_fixed_len = random.randint(1,max_gene_fixed_len)
@@ -116,7 +132,6 @@ class MemeticAlgorithm:
         ParentB_fixed_gene = ParentB[ gene_split_position:gene_fixed_len ]
 
         front_len = len(ParentA[ 0:gene_split_position ])
-        back_len  = self.job_len - front_len - len(ParentA_fixed_gene)
 
         ParentA_front = []
         ParentB_front = []
@@ -198,3 +213,8 @@ class MemeticAlgorithm:
         if df['makespans'][0] < self.min_makespan:
             self.min_makespan = df['makespans'][0]
             self.min_jobs = df['jobs'][0]
+
+if __name__ == '__main__': 
+    MA = MemeticAlgorithm('./PFSP_benchmark_data_set/tai20_5_1.txt')
+    result = MA.search()
+    print(result)
