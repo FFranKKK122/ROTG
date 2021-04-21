@@ -28,6 +28,7 @@ cpdef int makespan(numpy.ndarray array, list order = [0, 1, 2] ):
             for j in order:
                 # 取得該job在上一階段的完成時間
                 job_last_end = end_time_q.front()
+                end_time_q.pop_front()
                 # 如果時間超過前一個job在這個階段的完成時間，直接將現在時間設為該job在上一階段的完成時間
                 if(job_last_end > time):
                     time = job_last_end
