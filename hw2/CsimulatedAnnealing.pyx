@@ -1,29 +1,37 @@
-import tool
+from tool import Tool
 import math
 import random
 import copy
+cimport numpy
 
 
-class SimulatedAnnealing:
-    def __init__(self, temperture, alpha, epoch_len, initial_jobs, file='./PFSP_benchmark_data_set/tai20_5_1.txt'):
+cdef class SimulatedAnnealing:
+    cdef public int epoch_len, count_time, max_count_time, job_len, min_makespan
+    cdef public double alpha, temperture
+    cdef public list min_jobs_seq, makespan_array
+    cdef public numpy.ndarray span
+
+    def __init__(self, double temperture, double alpha, int epoch_len, list initial_jobs, file="./PFSP_benchmark_data_set/tai20_5_1.txt"):
         self.temperture = temperture  # 初始溫度
         self.alpha = alpha  # temperture減少倍率
         self.count_time = 1  # 計算的數量
         self.max_count_time = 10000  # 總計算數
         self.epoch_len = epoch_len
 
-        self.tool = tool.Tool()
-        self.span = self.tool.io(file)  # 測資
+        self.span = Tool().io(file)  # 測資
         self.job_len = len(initial_jobs)
         self.min_jobs_seq = initial_jobs  # job初始排序
-        self.min_makespan = self.tool.makespan(
+        self.min_makespan = Tool().makespan(
             self.span, self.min_jobs_seq)  # 計算初始makespan
         self.makespan_array = [self.min_makespan]  # 儲存所有makespan
 
     def search(self):
         # print(self.min_jobs_seq)
-        jobs_seq = copy.deepcopy(self.min_jobs_seq)
-        makespan = self.min_makespan
+        cdef list jobs_seq = copy.deepcopy(self.min_jobs_seq)
+        cdef int makespan = self.min_makespan
+        
+        cdef list temp_jobs_seq = []
+        cdef int temp_makespan = 999999999
         # search
         while self.count_time < self.max_count_time:
             for l in range(self.epoch_len):
@@ -31,13 +39,14 @@ class SimulatedAnnealing:
                     break
 
                 temp_jobs_seq = self.generateNewJobSeq(jobs_seq)
-                temp_makespan = self.tool.makespan(self.span, temp_jobs_seq)
+                temp_makespan = Tool().makespan(self.span, temp_jobs_seq)
 
                 self.count_time += 1
                 # print('已搜索', self.count_time, '次')
 
                 if temp_makespan < self.min_makespan:
-                    self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
+                    #self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
+                    self.min_jobs_seq = temp_jobs_seq
                     self.min_makespan = makespan
 
                 if temp_makespan < makespan:
@@ -52,7 +61,7 @@ class SimulatedAnnealing:
 
             # if self.count_time >= self.max_count_time:
             #     break
-            self.calculateEpoch()
+            #self.calculateEpoch()
             self.calculateTemperture()
 
         # print('最低makespan的job_seq')
@@ -60,13 +69,14 @@ class SimulatedAnnealing:
         # print('最低makespan')
         # print(self.min_makespan)
 
-    def generateNewJobSeq(self, jobs_seq):
-        temp_jobs_seq = copy.deepcopy(jobs_seq)
+    cdef list generateNewJobSeq(self, jobs_seq):
+        cdef list temp_jobs_seq = copy.deepcopy(jobs_seq)
         # 取得第一個隨機數
-        first_elememt = random.randint(0, self.job_len-1)
+        cdef int first_elememt = random.randint(0, self.job_len-1)
 
         # 取得第二個隨機數且不與第一個重複
-        second_elememt = random.randint(0, self.job_len-1)
+        cdef int second_elememt = random.randint(0, self.job_len-1)
+        
         while second_elememt == first_elememt:
             second_elememt = random.randint(0, self.job_len-1)
 
@@ -80,3 +90,5 @@ class SimulatedAnnealing:
 
     def calculateTemperture(self):
         self.temperture *= self.alpha
+
+

@@ -5,7 +5,7 @@ from os.path import isfile, join
 import random
 import logging
 import multiprocessing as mp
-
+import time
 
 # ================================================
 def task(seed, fpath):
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     print('1. MemeticAlgorithm')
 
-    choice = '3'
+    choice = '2'
     while choice not in ['1', '2', '3']:
         choice = input('輸入錯誤，請輸入要用哪種演算法訓練：')
 
@@ -74,7 +74,16 @@ if __name__ == "__main__":
 
         mypath = './PFSP_benchmark_data_set/'
         random.seed(11)
-        ma = MA.MemeticAlgorithm(file_path=mypath + 'tai20_10_1.txt')
+        csv_pd = pd.DataFrame()
+
+        # 開始測量
+        start = time.time()
+        ma = MA.MemeticAlgorithm(file_path=mypath + 'tai20_10_1.txt', csv_pd=csv_pd)
+        # 結束測量
+        end = time.time()
+
+        # 輸出結果
+        print("執行時間：%f 秒" % (end - start))
 
         print('min_jobs:', ma.min_jobs)
         print('min_makespan:', ma.min_makespan)
