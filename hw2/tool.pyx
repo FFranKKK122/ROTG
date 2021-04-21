@@ -3,6 +3,7 @@ import pandas as pd
 import queue
 import numpy
 cimport numpy
+from libcpp.deque cimport deque
 
 cpdef int makespan(numpy.ndarray array, list order = [0, 1, 2] ):
         # job 數量
@@ -14,31 +15,31 @@ cpdef int makespan(numpy.ndarray array, list order = [0, 1, 2] ):
         #起始時間
         cdef int time = 0
         #完成時間Queue
-        end_time_q = queue.Queue()
+        cdef deque[int] end_time_q
         
         cdef int i  
         cdef int j
         #起始上一階段完成時間皆為0
         for i in range(jobs):
-            end_time_q.put(0)
+            end_time_q.push_back(0)
 
         for i in range(machine_count):
 
             for j in order:
                 # 取得該job在上一階段的完成時間
-                job_last_end = end_time_q.get()
+                job_last_end = end_time_q.front()
                 # 如果時間超過前一個job在這個階段的完成時間，直接將現在時間設為該job在上一階段的完成時間
                 if(job_last_end > time):
                     time = job_last_end
                 # job在機器i中的執行時間
                 time += array[i][j]
 
-                end_time_q.put(time)
+                end_time_q.push_back(time)
                 #print(time)
 
-            time = end_time_q.queue[0]
+            time = end_time_q.front()
 
-        return end_time_q.queue[-1]
+        return end_time_q.back()
 
 class Tool:
     def __init__(self):
@@ -65,3 +66,5 @@ if __name__ == '__main__':  # For test Class
     array = [[5, 2, 1], [3, 5, 3], [4, 2,  2]]
     tool = Tool()
     print(tool.io())
+
+
