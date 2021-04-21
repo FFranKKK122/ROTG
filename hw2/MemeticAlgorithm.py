@@ -78,7 +78,7 @@ class MemeticAlgorithm:
             offspring_list = []
             span_list = []
             for i in range(0, self.population_len, 2):
-                parents = self.population[i:i+1]
+                parents = self.population[i:i+2]
                 offspring, span = self.reproduction_lox(parents)
                 offspring_list += offspring
                 span_list += span
