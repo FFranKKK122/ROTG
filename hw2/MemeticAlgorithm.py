@@ -215,6 +215,6 @@ class MemeticAlgorithm:
             self.min_jobs = df['jobs'][0]
 
 if __name__ == '__main__': 
-    MA = MemeticAlgorithm('./PFSP_benchmark_data_set/tai20_5_1.txt')
+    MA = MemeticAlgorithm('./PFSP_benchmark_data_set/tai100_20_1.txt')
     result = MA.search()
     print(result)
