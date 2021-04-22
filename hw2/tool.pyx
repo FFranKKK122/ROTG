@@ -1,3 +1,4 @@
+# distutils: language=c++
 import matplotlib.pyplot as plt
 import pandas as pd 
 import queue

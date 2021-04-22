@@ -48,7 +48,7 @@ cdef class SimulatedAnnealing:
                 if temp_makespan < self.min_makespan:
                     #self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
                     self.min_jobs_seq = temp_jobs_seq
-                    self.min_makespan = makespan
+                    self.min_makespan = temp_makespan
 
                 if temp_makespan < makespan:
                     jobs_seq = temp_jobs_seq

@@ -2467,7 +2467,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
  *                 if temp_makespan < self.min_makespan:
  *                     #self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
  *                     self.min_jobs_seq = temp_jobs_seq             # <<<<<<<<<<<<<<
- *                     self.min_makespan = makespan
+ *                     self.min_makespan = temp_makespan
  * 
  */
         __Pyx_INCREF(__pyx_v_temp_jobs_seq);
@@ -2479,11 +2479,11 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
         /* "CsimulatedAnnealing.pyx":51
  *                     #self.min_jobs_seq = copy.deepcopy(temp_jobs_seq)
  *                     self.min_jobs_seq = temp_jobs_seq
- *                     self.min_makespan = makespan             # <<<<<<<<<<<<<<
+ *                     self.min_makespan = temp_makespan             # <<<<<<<<<<<<<<
  * 
  *                 if temp_makespan < makespan:
  */
-        __pyx_v_self->min_makespan = __pyx_v_makespan;
+        __pyx_v_self->min_makespan = __pyx_v_temp_makespan;
 
         /* "CsimulatedAnnealing.pyx":48
  *                 # print('', self.count_time, '')
@@ -2495,7 +2495,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
       }
 
       /* "CsimulatedAnnealing.pyx":53
- *                     self.min_makespan = makespan
+ *                     self.min_makespan = temp_makespan
  * 
  *                 if temp_makespan < makespan:             # <<<<<<<<<<<<<<
  *                     jobs_seq = temp_jobs_seq
@@ -2524,7 +2524,7 @@ static PyObject *__pyx_pf_19CsimulatedAnnealing_18SimulatedAnnealing_2search(str
         __pyx_v_makespan = __pyx_v_temp_makespan;
 
         /* "CsimulatedAnnealing.pyx":53
- *                     self.min_makespan = makespan
+ *                     self.min_makespan = temp_makespan
  * 
  *                 if temp_makespan < makespan:             # <<<<<<<<<<<<<<
  *                     jobs_seq = temp_jobs_seq
