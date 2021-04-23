@@ -157,9 +157,11 @@ class MemeticAlgorithm:
         span_list = []
         jobs_list = []
 
+        size = len(df.index)
+
         for i in range(2):
-            a = random.randint(0, 3)
-            b = random.randint(0, 3)
+            a = random.randint(0, size - 1)
+            b = random.randint(0, size - 1)
 
             while (a == b):
                 b = random.randint(0, 3)
@@ -170,6 +172,7 @@ class MemeticAlgorithm:
             else:
                 jobs_list.append(df['jobs'][b])
                 span_list.append(df['makespans'][b])
+
         ret = pd.DataFrame()
 
         ret['jobs'] = jobs_list
