@@ -64,17 +64,18 @@ class MemeticAlgorithm:
             start = time.time()
             print('epoch', i)
             # self.population = self.evaluation(self.population)
-            df = self.mating_selection(self.population)
-            df2 = self.mating_selection(self.population)
 
-            offspring, span = self.reproduction(df)
-            offspring1, span1 = self.reproduction(df2)
-            offspring += offspring1
-            span += span1
+            offspring_list = []
+            span_list = []
+            for p in range(0,self.population_len,2):
+                df = self.mating_selection(self.population)
+                offspring, span = self.reproduction(df)
+                offspring_list += offspring
+                span_list += span
 
             population = pd.DataFrame()
-            population['jobs'] = offspring
-            population['makespans'] = span
+            population['jobs'] = offspring_list
+            population['makespans'] = span_list
             population = self.evaluation(population)
             self.environmental_selection(self.population, population)
 
