@@ -6,8 +6,8 @@ from utils import *
 #可以使用dot的dict
 args = dotdict({
     'boardSize': 3,
-    'numIters': 10,             #訓練代數
-    'numEps': 1,              # Number of complete self-play games to simulate during a new iteration.
+    'numIters': 300,             #訓練代數
+    'numEps': 100,              # Number of complete self-play games to simulate during a new iteration.
     'tempThreshold': 40,        # n步數以後只搜尋勝率最高的走步
     'updateThreshold': 0.6,     # 新網路的勝率門檻 During arena playoff, new neural net will be accepted if threshold or more of games are won.
     'maxlenOfQueue': 20000,    # Number of game examples to train the neural networks.

@@ -88,7 +88,7 @@ class DotsAndBoxesNNet():
         <tf.Tensor 'v/Tanh:0' shape=(?, 1) dtype=float32>
         '''
         self.model = Model(inputs=self.input_boards, outputs=[self.pi, self.v]) #實例化一個model，給定輸入張量為(?,6,6) 輸出張量為(?,37)跟(?,1)
-        self.model.compile(loss=['categorical_crossentropy','mean_squared_error'], optimizer=Adam(args.lr))
+        # self.model.compile(loss=['categorical_crossentropy','mean_squared_error'], optimizer=Adam(args.lr))
         '''
         model.compiler 用於配置訓練模型。
         loss 為決定要最小化甚麼目標函數 此處為 categorical_crossentropy跟mean_squared_error
