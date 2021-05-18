@@ -23,7 +23,7 @@ args = dotdict({
     'epochs': 10,
     'batch_size': 64,
     'cuda': True,
-    'num_channels': 512,
+    'num_channels': 32,
 })
 
 data_inputs = any
@@ -126,21 +126,21 @@ def train_by_gann():
     # pygad train
     # Create an instance of the pygad.kerasga.KerasGA class to build the initial population.
     keras_ga = pygad.kerasga.KerasGA(
-        model=model, num_solutions=10)
+        model=model, num_solutions=20)
 
     # Prepare the PyGAD parameters. Check the documentation for more information: https://pygad.readthedocs.io/en/latest/README_pygad_ReadTheDocs.html#pygad-ga-class
-    num_generations = 2  # Number of generations.
+    num_generations = 50  # Number of generations.
     # Number of solutions to be selected as parents in the mating pool.
-    num_parents_mating = 5
+    num_parents_mating = 10
     # Initial population of network weights.
     initial_population = keras_ga.population_weights
-    parent_selection_type = "sss"  # Type of parent selection.
-    crossover_type = "single_point"  # Type of the crossover operator.
-    mutation_type = "random"  # Type of the mutation operator.
+    parent_selection_type = "sus"  # Type of parent selection.
+    crossover_type = "scattered"  # Type of the crossover operator.
+    mutation_type = "scramble"  # Type of the mutation operator.
     # Percentage of genes to mutate. This parameter has no action if the parameter mutation_num_genes exists.
-    mutation_percent_genes = 10
+    mutation_percent_genes = 50
     # Number of parents to keep in the next population. -1 means keep all parents and 0 means keep nothing.
-    keep_parents = -1
+    keep_parents = 5
 
     # Create an instance of the pygad.GA class
     ga_instance = pygad.GA(num_generations=num_generations,
@@ -187,11 +187,14 @@ def fitness_func(solution, sol_idx):
     model.set_weights(weights=model_weights_matrix)
 
     predictions = model.predict(data_inputs)
-
     cce = tensorflow.keras.losses.CategoricalCrossentropy()
     mse = tensorflow.keras.losses.MeanSquaredError()
-    solution_fitness = 1.0 / (cce(data_outputs[0], predictions[0]).numpy() + 0.00000001 + mse(data_outputs[1], predictions[1]))
-
+    # print(cce(data_outputs[0], predictions[0]).numpy())
+    # print(mse(data_outputs[1], predictions[1]).numpy())
+    # input()
+    solution_fitness = 1.0 / (cce(data_outputs[0], predictions[0]).numpy() + 0.00000001 + mse(data_outputs[1], predictions[1]).numpy())
+    # solution_fitness = (cce(data_outputs[0], predictions[0]).numpy() + mse(data_outputs[1], predictions[1]).numpy())
+    # print(solution_fitness)
     return solution_fitness
 
 def callback_generation(ga_instance):

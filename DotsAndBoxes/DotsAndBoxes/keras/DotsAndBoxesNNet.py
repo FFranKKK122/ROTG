@@ -68,8 +68,8 @@ class DotsAndBoxesNNet():
         實際為:
         <tf.Tensor 'flatten_2/Reshape:0' shape=(?, ?) dtype=float32> 
         '''  
-        s_fc1 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(1024, use_bias=False)(h_conv4_flat))))  # batch_size x 1024
-        s_fc2 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(512, use_bias=False)(s_fc1))))          # batch_size x 1024
+        s_fc1 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(256, use_bias=False)(h_conv4_flat))))  # batch_size x 1024
+        s_fc2 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(128, use_bias=False)(s_fc1))))          # batch_size x 1024
         '''
         Dropout在訓練中每次更新時，將輸入單元按比率隨機設置為0，有助於防止overfitting
         args.dropout=0.3  可設定在0~1之間，為需要丟棄的比例。
