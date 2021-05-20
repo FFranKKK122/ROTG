@@ -1,0 +1,102 @@
+------ITER 1------
+Episode 0 eps cost time = 6.617 sec
+SelfPlay total cost time = 6.617 sec
+------ITER 2------
+Episode 0 eps cost time = 4.002 sec
+SelfPlay total cost time = 4.003 sec
+------ITER 1------
+Episode 0 eps cost time = 6.602 sec
+SelfPlay total cost time = 6.602 sec
+------ITER 1------
+Episode 0 eps cost time = 5.185 sec
+SelfPlay total cost time = 5.185 sec
+------ITER 2------
+Episode 0 eps cost time = 4.250 sec
+SelfPlay total cost time = 4.250 sec
+------ITER 1------
+Episode 0 eps cost time = 6.323 sec
+SelfPlay total cost time = 6.323 sec
+------ITER 1------
+Episode 0 eps cost time = 5.165 sec
+SelfPlay total cost time = 5.165 sec
+------ITER 1------
+Episode 0 eps cost time = 6.401 sec
+SelfPlay total cost time = 6.401 sec
+------ITER 1------
+Episode 0 eps cost time = 6.231 sec
+SelfPlay total cost time = 6.234 sec
+------ITER 1------
+Episode 0 eps cost time = 5.228 sec
+SelfPlay total cost time = 5.228 sec
+------ITER 1------
+Episode 0 eps cost time = 7.050 sec
+SelfPlay total cost time = 7.051 sec
+------ITER 1------
+Episode 0 eps cost time = 6.457 sec
+SelfPlay total cost time = 6.457 sec
+------ITER 1------
+Episode 0 eps cost time = 3.661 sec
+SelfPlay total cost time = 3.661 sec
+------ITER 1------
+Episode 0 eps cost time = 2.670 sec
+SelfPlay total cost time = 2.670 sec
+------ITER 2------
+Episode 0 eps cost time = 1.726 sec
+SelfPlay total cost time = 1.726 sec
+------ITER 3------
+Episode 0 eps cost time = 1.653 sec
+SelfPlay total cost time = 1.653 sec
+------ITER 1------
+Episode 0 eps cost time = 2.725 sec
+SelfPlay total cost time = 2.726 sec
+------ITER 2------
+Episode 0 eps cost time = 1.732 sec
+SelfPlay total cost time = 1.733 sec
+------ITER 1------
+Episode 0 eps cost time = 2.545 sec
+SelfPlay total cost time = 2.545 sec
+------ITER 1------
+Episode 0 eps cost time = 2.636 sec
+SelfPlay total cost time = 2.636 sec
+------ITER 2------
+Episode 0 eps cost time = 1.831 sec
+SelfPlay total cost time = 1.831 sec
+------ITER 1------
+Episode 0 eps cost time = 2.745 sec
+SelfPlay total cost time = 2.746 sec
+------ITER 1------
+Episode 0 eps cost time = 2.540 sec
+SelfPlay total cost time = 2.541 sec
+------ITER 1------
+Episode 0 eps cost time = 2.533 sec
+SelfPlay total cost time = 2.533 sec
+------ITER 1------
+Episode 0 eps cost time = 2.646 sec
+SelfPlay total cost time = 2.646 sec
+------ITER 1------
+Episode 0 eps cost time = 2.712 sec
+SelfPlay total cost time = 2.712 sec
+------ITER 1------
+Episode 0 eps cost time = 2.689 sec
+SelfPlay total cost time = 2.689 sec
+------ITER 1------
+Episode 0 eps cost time = 2.488 sec
+SelfPlay total cost time = 2.488 sec
+------ITER 1------
+Episode 0 eps cost time = 2.431 sec
+SelfPlay total cost time = 2.432 sec
+------ITER 1------
+Episode 0 eps cost time = 2.578 sec
+SelfPlay total cost time = 2.578 sec
+------ITER 1------
+Episode 0 eps cost time = 2.597 sec
+SelfPlay total cost time = 2.597 sec
+------ITER 1------
+Episode 0 eps cost time = 2.671 sec
+SelfPlay total cost time = 2.671 sec
+------ITER 1------
+Episode 0 eps cost time = 2.545 sec
+SelfPlay total cost time = 2.546 sec
+------ITER 1------
+Episode 0 eps cost time = 2.664 sec
+SelfPlay total cost time = 2.665 sec

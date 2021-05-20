@@ -18,12 +18,12 @@ sys.path.append('../..')
 
 # 可以使用dot的dictionary
 args = dotdict({
-    'lr': 0.001,
+    'lr': 0.001, # 0.001
     'dropout': 0.3,
     'epochs': 10,
     'batch_size': 64,
     'cuda': True,
-    'num_channels': 512,
+    'num_channels': 16
 })
 
 data_inputs = any
@@ -126,21 +126,22 @@ def train_by_gann():
     # pygad train
     # Create an instance of the pygad.kerasga.KerasGA class to build the initial population.
     keras_ga = pygad.kerasga.KerasGA(
-        model=model, num_solutions=10)
+        model=model, num_solutions=50)
 
     # Prepare the PyGAD parameters. Check the documentation for more information: https://pygad.readthedocs.io/en/latest/README_pygad_ReadTheDocs.html#pygad-ga-class
-    num_generations = 2  # Number of generations.
+    num_generations = 200  # Number of generations.
     # Number of solutions to be selected as parents in the mating pool.
-    num_parents_mating = 5
+    num_parents_mating = 25
     # Initial population of network weights.
     initial_population = keras_ga.population_weights
-    parent_selection_type = "sss"  # Type of parent selection.
-    crossover_type = "single_point"  # Type of the crossover operator.
-    mutation_type = "random"  # Type of the mutation operator.
+    parent_selection_type = "tournament"  # Type of parent selection.
+    K_tournament = 12
+    crossover_type = "uniform"  # Type of the crossover operator.
+    mutation_type = "swap"  # Type of the mutation operator.
     # Percentage of genes to mutate. This parameter has no action if the parameter mutation_num_genes exists.
-    mutation_percent_genes = 10
+    mutation_percent_genes = 50
     # Number of parents to keep in the next population. -1 means keep all parents and 0 means keep nothing.
-    keep_parents = -1
+    keep_parents = 0
 
     # Create an instance of the pygad.GA class
     ga_instance = pygad.GA(num_generations=num_generations,
@@ -148,6 +149,7 @@ def train_by_gann():
                             initial_population=initial_population,
                             fitness_func=fitness_func,
                             parent_selection_type=parent_selection_type,
+                            K_tournament=K_tournament,
                             crossover_type=crossover_type,
                             mutation_type=mutation_type,
                             mutation_percent_genes=mutation_percent_genes,
