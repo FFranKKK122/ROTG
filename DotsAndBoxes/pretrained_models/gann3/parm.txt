@@ -1,6 +1,6 @@
 # Create an instance of the pygad.kerasga.KerasGA class to build the initial population.
     keras_ga = pygad.kerasga.KerasGA(
-        model=model, num_solutions=50)
+        model=model, num_solutions=30)
 
     # Prepare the PyGAD parameters. Check the documentation for more information: https://pygad.readthedocs.io/en/latest/README_pygad_ReadTheDocs.html#pygad-ga-class
     num_generations = 200  # Number of generations.
@@ -17,9 +17,11 @@
     # Number of parents to keep in the next population. -1 means keep all parents and 0 means keep nothing.
     keep_parents = 0
 
+35代開始overfitting
+
 'lr': 0.001, # 0.001
     'dropout': 0.3,
     'epochs': 10,
     'batch_size': 64,
     'cuda': True,
-    'num_channels': 16
+    'num_channels': 32

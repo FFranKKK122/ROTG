@@ -68,8 +68,8 @@ class DotsAndBoxesNNet():
         實際為:
         <tf.Tensor 'flatten_2/Reshape:0' shape=(?, ?) dtype=float32> 
         '''  
-        s_fc1 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(256, use_bias=False)(h_conv4_flat))))  # batch_size x 1024
-        s_fc2 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(128, use_bias=False)(s_fc1))))          # batch_size x 1024
+        #s_fc1 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(1024, use_bias=False)(h_conv4_flat))))  # batch_size x 1024
+        #s_fc2 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(512, use_bias=False)(s_fc1))))          # batch_size x 1024
         '''
         Dropout在訓練中每次更新時，將輸入單元按比率隨機設置為0，有助於防止overfitting
         args.dropout=0.3  可設定在0~1之間，為需要丟棄的比例。
@@ -80,8 +80,8 @@ class DotsAndBoxesNNet():
         >>> s_fc2
         <tf.Tensor 'dropout_2/cond/Merge:0' shape=(?, 512) dtype=float32>
         '''   
-        self.pi = Dense(self.action_size, activation='softmax', name='pi')(s_fc2)   # batch_size x self.action_size
-        self.v = Dense(1, activation='tanh', name='v')(s_fc2)                    # batch_size x 1
+        self.pi = Dense(self.action_size, activation='softmax', name='pi')(h_conv4_flat)   # batch_size x self.action_size
+        self.v = Dense(1, activation='tanh', name='v')(h_conv4_flat)                    # batch_size x 1
         '''
         <tf.Tensor 'pi/Softmax:0' shape=(?, 36) dtype=float32>
         softmax是在算機率的，猜測這部分37 為 36個可下子的點+1不下子

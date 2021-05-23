@@ -2,7 +2,8 @@ import Arena
 from MCTS import MCTS
 from DotsAndBoxes.DotsAndBoxesGame import DotsAndBoxesGame
 from DotsAndBoxes.DotsAndBoxesPlayers import *
-from DotsAndBoxes.keras.NNet import NNetWrapper as NNet
+from pretrained_models.gann3.keras.NNet import NNetWrapper as NNet1
+from pretrained_models.gann2.keras.NNet import NNetWrapper as NNet2
 
 
 import numpy as np
@@ -13,7 +14,7 @@ use this script to play any two agents against each other, or play manually with
 any agent.
 """
 
-human_vs_cpu = True
+human_vs_cpu = False
 
 
 g = DotsAndBoxesGame(3)
@@ -25,16 +26,16 @@ hp = HumanPlayer(g).play
 
 
 # nnet players
-n1 = NNet(g)
-n1.load_checkpoint('./temp/','checkpoint_35.pth.tar')
+n1 = NNet1(g)
+n1.load_checkpoint('./pretrained_models/gann3/','checkpoint_12.pth.tar')
 args1 = dotdict({'numMCTSSims': 200, 'cpuct':2.5})
 mcts1 = MCTS(g, n1, args1)
 n1p = lambda x: np.argmax(mcts1.getActionProb(x, temp=0))
 if human_vs_cpu:
     player2 = rp
 else:
-    n2 = NNet(g)
-    n2.load_checkpoint('./pretrained_models/temp/','1217-25-exact_win.pth.tar')
+    n2 = NNet2(g)
+    n2.load_checkpoint('./pretrained_models/gann2/','checkpoint_19.pth.tar')
     args2 = dotdict({'numMCTSSims': 200, 'cpuct': 3.75})
     mcts2 = MCTS(g, n2, args2)
     n2p = lambda x: np.argmax(mcts2.getActionProb(x, temp=0))
@@ -42,4 +43,4 @@ else:
 
 #arena = Arena.Arena(n1p, player2, g, display=DotsAndBoxesGame.display)
 arena = Arena.Arena(n1p, player2, g,display=DotsAndBoxesGame.display)
-print(arena.playGames(2, verbose=True))
+print(arena.playGames(100, verbose=True))

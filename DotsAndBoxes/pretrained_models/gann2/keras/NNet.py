@@ -23,7 +23,7 @@ args = dotdict({
     'epochs': 10,
     'batch_size': 64,
     'cuda': True,
-    'num_channels': 32
+    'num_channels': 16
 })
 
 data_inputs = any

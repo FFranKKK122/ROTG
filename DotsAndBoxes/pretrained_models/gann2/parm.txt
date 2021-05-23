@@ -18,3 +18,10 @@
     keep_parents = 0
 
 35代開始overfitting
+
+'lr': 0.001, # 0.001
+    'dropout': 0.3,
+    'epochs': 10,
+    'batch_size': 64,
+    'cuda': True,
+    'num_channels': 16
