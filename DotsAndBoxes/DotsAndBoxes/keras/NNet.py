@@ -126,7 +126,7 @@ def train_by_gann():
     # pygad train
     # Create an instance of the pygad.kerasga.KerasGA class to build the initial population.
     keras_ga = pygad.kerasga.KerasGA(
-        model=model, num_solutions=50)
+        model=model, num_solutions=30)
 
     # Prepare the PyGAD parameters. Check the documentation for more information: https://pygad.readthedocs.io/en/latest/README_pygad_ReadTheDocs.html#pygad-ga-class
     num_generations = 200  # Number of generations.

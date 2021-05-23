@@ -7,7 +7,7 @@ from utils import *
 args = dotdict({
     'boardSize': 3,
     'numIters': 300,             #訓練代數
-    'numEps': 1,              # Number of complete self-play games to simulate during a new iteration.
+    'numEps': 10,              # Number of complete self-play games to simulate during a new iteration.
     'tempThreshold': 40,        # n步數以後只搜尋勝率最高的走步
     'updateThreshold': 0.6,     # 新網路的勝率門檻 During arena playoff, new neural net will be accepted if threshold or more of games are won.
     'maxlenOfQueue': 20000,    # Number of game examples to train the neural networks.
@@ -18,7 +18,7 @@ args = dotdict({
     'checkpoint': './temp/',
     'load_model': False,
     'load_folder_file': ('./temp/','best.pth.tar'),
-    'numItersForTrainExamplesHistory': 20, #保留n代的訓練資料
+    'numItersForTrainExamplesHistory': 1, #保留n代的訓練資料
 
 })
 
