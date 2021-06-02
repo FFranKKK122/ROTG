@@ -23,7 +23,7 @@ args = dotdict({
     'epochs': 10,
     'batch_size': 64,
     'cuda': True,
-    'num_channels': 64
+    'num_channels': 32
 })
 
 data_inputs = any
@@ -126,10 +126,10 @@ def train_by_gann():
     # pygad train
     # Create an instance of the pygad.kerasga.KerasGA class to build the initial population.
     keras_ga = pygad.kerasga.KerasGA(
-        model=model, num_solutions=40)
+        model=model, num_solutions=30)
 
     # Prepare the PyGAD parameters. Check the documentation for more information: https://pygad.readthedocs.io/en/latest/README_pygad_ReadTheDocs.html#pygad-ga-class
-    num_generations = 150  # Number of generations.
+    num_generations = 300  # Number of generations.
     # Number of solutions to be selected as parents in the mating pool.
     num_parents_mating = 25
     # Initial population of network weights.
@@ -192,8 +192,7 @@ def fitness_func(solution, sol_idx):
 
     cce = tensorflow.keras.losses.CategoricalCrossentropy()
     mse = tensorflow.keras.losses.MeanSquaredError()
-    # solution_fitness = 1.0 / (cce(data_outputs[0], predictions[0]).numpy() + 0.00000001 + mse(data_outputs[1], predictions[1]))
-    solution_fitness = -cce(data_outputs[0], predictions[0]).numpy() - mse(data_outputs[1], predictions[1])
+    solution_fitness = 1.0 / (cce(data_outputs[0], predictions[0]).numpy() + 0.00000001 + mse(data_outputs[1], predictions[1]))
 
     return solution_fitness
 
